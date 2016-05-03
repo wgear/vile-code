@@ -6,6 +6,13 @@ from feed.models import Hashtag
 
 
 class CreateClubForm(ModelForm):
+    def __init__(self, owner, *args, **kwargs):
+        self.owner = owner
+        super(CreateClubForm, self).__init__(*args, **kwargs)
+
+    def clean_owner(self):
+        return self.owner.pk
+
     class Meta:
         model = Public
         fields = [
@@ -16,5 +23,5 @@ class CreateClubForm(ModelForm):
             'is_public',
             'is_indexed',
             'owner',
-            'tags'
+            'tags',
         ]

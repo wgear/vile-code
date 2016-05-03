@@ -4,7 +4,10 @@
 {% block content %}
     <form action="" method="post" enctype="multipart/form-data" class="block html-form tab flat">
         {% csrf_token %}
+
         <header class="title">Create new club</header>
+        <p>{{ form.non_field_errors }}</p>
+
         <div class="input {% if form.errors.title %}invalid{% endif %}">
             <label for="id_title" class="table">{{ form.title.label }}</label>
             {{ form.title }}

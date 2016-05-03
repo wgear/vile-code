@@ -14,8 +14,8 @@ class Public(models.Model, Votable):
 
     tags = models.ManyToManyField(Hashtag)
     owner = models.ForeignKey(Person)
-    members = models.ManyToManyField(Person, related_name='members')
-    founders = models.ManyToManyField(Person, related_name='founders')
+    members = models.ManyToManyField(Person, related_name='members', blank=True)
+    founders = models.ManyToManyField(Person, related_name='founders', blank=True)
 
     karma = models.IntegerField(db_index=True, default=0, blank=True)
 

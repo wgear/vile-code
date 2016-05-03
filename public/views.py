@@ -4,10 +4,8 @@ from public.forms import CreateClubForm
 
 
 def create_club(request):
-    data = dict(request.POST)
-    data['owner'] = request.user
-    form = CreateClubForm(data=request.POST, files=request.FILES)
-    if form.is_valid() and form.clean():
+    form = CreateClubForm(owner=request.user, data=request.POST, files=request.FILES)
+    if form.is_valid():
         form.save()
         return redirect(reverse('home'))
 
