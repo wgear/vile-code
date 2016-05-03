@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block rside %}{% endblock %}
+{% block content %}
+    <div class="headed wide html-form block divided float-rt">
+        <header class="block-title">Authorization</header>
+        <section class="block-body">
+            {% for msg in message %}
+                <p>{{ msg }}</p>
+            {% endfor %}
+            <form action="{% url 'auth' %}" method="post">
+                {% csrf_token %}
+                <div class="input">
+                    <input type="text" name="username" placeholder="Email or Login">
+                </div>
+                <div class="input">
+                    <input type="password" name="password" placeholder="Password">
+                </div>
+                <input type="submit" class="btn" value="Login">
+            </form>
+        </section>
+    </div>
+{% endblock content %}

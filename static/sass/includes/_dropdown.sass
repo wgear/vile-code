@@ -1,0 +1,38 @@
+.dropdown
+  position: relative
+
+  ul
+    margin: 0
+    top: 100%
+    display: none
+    padding: 5px 0
+    min-width: 230px
+    position: absolute
+    background: #ffffff
+    border: 1px solid #dddddd
+    border-bottom-left-radius: $border_radius
+    border-bottom-right-radius: $border_radius
+    +block-shadow(6px, -2px)
+
+    &:not(.rt)
+      left: 0
+    &.rt
+      right: 0
+
+    li
+      list-style: none
+      display: block !important
+
+      a
+        display: block !important
+        color: $color_link !important
+        padding: $default_padding !important
+        line-height: 14px
+        &:hover
+          background: $color_link !important
+          color: whitesmoke !important
+
+
+  &.active ul
+    display: block
+

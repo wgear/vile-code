@@ -1,0 +1,73 @@
+.html-form
+  .action
+    margin: 14px 10px 34px 10px
+    text-align: right
+
+  header.title
+    text-align: center
+    color: $headline
+    font-size: 24px
+    line-height: 44px
+
+  .input
+    min-height: 32px
+    margin: 8px auto
+
+    &.invalid
+      background: #ffa5a4
+      font-weight: bold
+
+    input, select, textarea
+      border: none
+      outline: none
+      display: block
+      padding: 4px 6px
+      line-height: 24px
+      margin: 5px auto
+      background: #eeeeee
+      max-width: 100%
+
+    input[type="checkbox"], input[type="radio"]
+      margin: 0
+      width: 15px
+      height: 34px
+      vertical-align: middle
+
+  &.tab
+    input, select, textarea
+      display: block
+      width: 70%
+      max-width: 70%
+
+    label
+      width: 30%
+      float: left
+      text-align: right
+      line-height: 32px
+      padding: 0 10px 0 0
+      vertical-align: top
+      display: inline-block
+
+  &.wide .input
+    input, select, textarea
+      width: 100%
+
+  .btn
+    display: block
+    width: 100%
+
+.btn
+  padding: 6px 10px
+  background: $headline
+  text-align: center
+  color: whitesmoke
+  border: none
+  outline: none
+  cursor: pointer
+
+  &.flat
+    margin: 3px 0
+    display: inline-block
+
+  &:hover
+    background: lighten($headline, 10)

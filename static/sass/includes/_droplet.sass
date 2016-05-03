@@ -1,0 +1,36 @@
+.droplet
+  height: 34px
+  width: 120px
+  min-width: 120px
+  position: relative
+  display: inline-block
+  border-radius: 6px
+
+  span
+    border: 1px solid transparent
+
+  span, li
+    padding: 4px 8px
+
+  ul
+    top: -5px
+    margin: 0
+    padding: 0
+    display: none
+    width: inherit
+    position: absolute
+    background: #f5f5f5
+    border: 1px solid #eee
+
+    li
+      display: block
+      width: inherit
+      list-style: none
+      cursor: pointer
+
+      &:hover
+        background: teal
+        color: whitesmoke
+
+  &:hover ul
+    display: block

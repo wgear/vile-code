@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <form action="" method="post" enctype="multipart/form-data" class="block html-form tab flat">
+        {% csrf_token %}
+        <header class="title">Create new club</header>
+        <div class="input {% if form.errors.title %}invalid{% endif %}">
+            <label for="id_title" class="table">{{ form.title.label }}</label>
+            {{ form.title }}
+        </div>
+        <div class="input {% if form.errors.description %}invalid{% endif %}">
+            <label for="id_description" class="table">{{ form.description.label }}</label>
+            {{ form.description }}
+        </div>
+        <div class="input {% if form.errors.tags %}invalid{% endif %}">
+            <label for="id_tags" class="table">{{ form.tags.label }}</label>
+            {{ form.tags }}
+        </div>
+        <div class="input {% if form.errors.full_description %}invalid{% endif %}">
+            <label for="id_full_description" class="table">{{ form.full_description.label }}</label>
+            {{ form.full_description }}
+        </div>
+        <div class="input {% if form.errors.avatar %}invalid{% endif %}">
+            <label for="id_avatar" class="table">{{ form.avatar.label }}</label>
+            {{ form.avatar }}
+        </div>
+        <div class="input {% if form.errors.is_public %}invalid{% endif %}">
+            <label for="id_is_public" class="table">{{ form.is_public.label }}</label>
+            {{ form.is_public }}
+        </div>
+        <div class="input {% if form.errors.is_indexed %}invalid{% endif %}">
+            <label for="id_is_indexed" class="table">{{ form.is_indexed.label }}</label>
+            {{ form.is_indexed }}
+        </div>
+        <div class="action">
+            <button class="btn flat" type="submit">Create</button>
+        </div>
+    </form>
+{% endblock %}

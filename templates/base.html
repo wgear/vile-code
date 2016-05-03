@@ -1,0 +1,157 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Scripts -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/droplet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+</head>
+<body>
+    <header class="main-bar">
+        <div class="wrapper">
+            <ul>
+                <li id="brand">
+                    <a href="{% url 'home' %}">V</a>
+                </li>
+                <li id="form-search">
+                    <form action="{% url 'home' %}">
+                        <input type="text" autocomplete="off" name="hash" value="" placeholder="tag">
+                        <a href="javascript:void(0);" onclick="$(this).parent().submit();"><i class="fa fa-search"></i></a>
+                    </form>
+                </li>
+            </ul>
+
+            {% if user.is_authenticated %}
+            <ul class="float-rt">
+                <li class="dropdown">
+                    <a href="#">{{ user.username }}</a>
+                    <ul class="rt">
+                        <li><a href="/profile.html">Profile</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'person:logout' %}"><i class="fa fa-power-off"></i></a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </header>
+
+    <section class="wrapper body">
+        <!-- Right side section -->
+        <section class="panel">
+            {% block rside %}
+                {% include 'person/profile-bar.html' %}
+
+                <div class="headed block">
+                    <header class="block-title">Hot topic</header>
+                    <section class="block-body">
+                        {% for tag in hot %}
+                            <a class="btn flat" href="{% url 'home' %}?hash={{ tag.name }}">#{{ tag.name }}</a>
+                        {% endfor %}
+                    </section>
+                </div>
+            {% endblock rside %}
+        </section>
+
+
+        <!-- Content section -->
+        <section class="content">
+            {% block content %}
+            <!-- items list -->
+            <div class="item block">
+                <header>
+                    <img src="assets/media/img.jpg" alt="Author">
+                    <div class="header">
+                        <span class="author">Some author</span>
+                        <span class="info">12 Jun 2016 17:49</span>
+                    </div>
+                </header>
+                <section class="item-content">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
+                </section>
+                <section class="item-footer">
+                    <div class="dropdown block-inline">
+                        <a href="#"><i class="fa fa-th-list"></i> Options</a>
+                        <ul>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                        </ul>
+                    </div>
+
+                    <a href="" class="float-rt"><i class="fa fa-comment"></i> 12 Comments</a>
+                </section>
+            </div>
+
+            <div class="item block">
+                <header>
+                    <img src="assets/media/img.jpg" alt="Author">
+                    <div class="header">
+                        <span class="author">Some author</span>
+                        <span class="info">12 Jun 2016 17:49</span>
+                    </div>
+                </header>
+                <section class="item-content">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
+                </section>
+                <section class="item-footer dropdown">
+                    <div class="dropdown block-inline">
+                        <a href="#"><i class="fa fa-th-list"></i> Options</a>
+                        <ul>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                        </ul>
+                    </div>
+
+                    <a href="" class="float-rt"><i class="fa fa-comment"></i> 12 Comments</a>
+                </section>
+            </div>
+
+            <div class="item block">
+                <header>
+                    <img src="assets/media/img.jpg" alt="Author">
+                    <div class="header">
+                        <span class="author">Some author</span>
+                        <span class="info">12 Jun 2016 17:49</span>
+                    </div>
+                </header>
+                <section class="item-content less" onclick="$(this).toggleClass('less')">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
+                </section>
+                <section class="item-footer dropdown">
+                    <div class="dropdown block-inline">
+                        <a href="#"><i class="fa fa-th-list"></i> Options</a>
+                        <ul>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                            <li><a href="">hello</a></li>
+                        </ul>
+                    </div>
+
+                    <a href="" class="float-rt"><i class="fa fa-comment"></i> 12 Comments</a>
+                </section>
+            </div>
+            <!-- end item list -->
+            {% endblock content %}
+        </section>
+    </section>
+</body>
+</html>
