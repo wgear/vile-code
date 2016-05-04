@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra_title %} - {{ club.title }}{% endblock extra_title %}
+
+{% block extra %}
+<section class="profile">
+    <div class="header" style="background-image: url({% static 'media/space.jpg' %});"></div>
+</section>
+{% endblock extra %}
+
+    <!-- Right side section -->
+    <section class="panel">
+        <div class="headed wide html-form block">
+            <header class="block-title">
+                Name Lastname
+            </header>
+            <section class="block-body">
+                <div class="wide avatar">
+                    <img src="/assets/media/img.jpg" alt="Avattar" data-tooltip="Name Lastname">
+                    <a href="" class="btn">Upload New</a>
+                </div>
+            </section>
+        </div>
+    </section>
+

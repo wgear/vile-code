@@ -17,10 +17,12 @@
 {% else %}
     <div class="headed wide html-form block">
         <header class="block-title">Founder Karma <span class="float-rt">{{ user.karma }}</span></header>
-        <section class="block-body">
+        <section class="block-body navbar">
             {% for club in my_clubs %}
-                <a href="" class="btn">{{ club.title }}</a>
+                <a href="{% url 'club:home' club.id %}" class="block-block">{{ club.title }}</a>
             {% endfor %}
+
+            <br>
             <a href="{% url 'club:create' %}" class="btn">Create New Club</a>
         </section>
     </div>

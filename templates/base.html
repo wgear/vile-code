@@ -3,14 +3,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }}</title>
+    <title>{{ title }}{% block extra_title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tokenize.css' %}">
 
     <!-- Scripts -->
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{% static 'js/droplet.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/tokenize.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
 </head>
 <body>
@@ -18,11 +20,13 @@
         <div class="wrapper">
             <ul>
                 <li id="brand">
-                    <a href="{% url 'home' %}">V</a>
+                    <a href="{% url 'home' %}">
+                        {% block extra_v %}{% endblock %}V
+                    </a>
                 </li>
                 <li id="form-search">
                     <form action="{% url 'home' %}">
-                        <input type="text" autocomplete="off" name="hash" value="" placeholder="tag">
+                        <input type="text" autocomplete="off" name="hash" value="{{ hash }}" placeholder="tag">
                         <a href="javascript:void(0);" onclick="$(this).parent().submit();"><i class="fa fa-search"></i></a>
                     </form>
                 </li>
@@ -41,6 +45,8 @@
             {% endif %}
         </div>
     </header>
+
+    {% block extra %}{% endblock extra %}
 
     <section class="wrapper body">
         <!-- Right side section -->
