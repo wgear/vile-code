@@ -138,3 +138,25 @@ var Public = {
         }
     }
 };
+
+
+/**
+ * Vote for an item
+ * @param to
+ * @param positive
+ * @constructor
+ */
+var Vote = function(to, positive) {
+    positive = parseInt(positive === undefined || positive == 1 ? 1 : 0);
+    $.ajax({
+        url: '/feed/vote',
+        method: 'post',
+        data: {
+            to: to,
+            positive: positive
+        },
+        success: function(response) {
+            $('[data-target="' + to + '"]').text(response);
+        }
+    });
+};

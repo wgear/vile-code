@@ -11,7 +11,7 @@ def create_club(request):
         form = CreateClubForm(owner=request.user, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(reverse('home'))
+            return redirect(reverse('club:home', kwargs={'id': form.instance.pk}))
     else:
         form = CreateClubForm()
     return render(request, 'public/create.html', {

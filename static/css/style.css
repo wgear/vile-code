@@ -260,6 +260,10 @@ a, .droplet {
       width: auto;
       vertical-align: top;
       padding: 12px 16px; }
+    .item header .karma {
+      min-width: 80px;
+      line-height: 42px;
+      padding: 12px 16px; }
   .item .item-footer {
     padding: 8px 14px;
     border-top: 1px solid #eeeeee; }
