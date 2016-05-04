@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from vile.service import Votable
+from django.templatetags.static import static
 
 
 class Person(AbstractUser, Votable):
@@ -18,6 +19,12 @@ class Person(AbstractUser, Votable):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, db_index=True)
     verified = models.BooleanField(default=False, blank=True, db_index=True)
     register_date = models.DateTimeField(auto_created=True, blank=True, null=True)
+
+    @property
+    def image(self):
+        if not self.avatar:
+            return static('media/noavatar.jpg')
+        return '/{}'.format(self.avatar.url)
 
     def verify(self):
         self.verified = True

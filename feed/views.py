@@ -7,7 +7,7 @@ from feed.models import Hashtag
 def home(request):
     return render(request, 'feed/home.html', {
         'hash': request.GET.get('hash', ''),
-        'entries': RelatedFeeds.list(request.GET.get('query'), request.GET.get('page', 1))
+        'entries': RelatedFeeds.list(request.GET.get('hash'), request.GET.get('page', 1))
     })
 
 

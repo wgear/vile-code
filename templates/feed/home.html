@@ -2,34 +2,5 @@
 {% load staticfiles %}
 
 {% block content %}
-    {% for entry in entries %}
-        <div class="item block">
-            <header>
-                <img src="assets/media/img.jpg" alt="Author">
-                <div class="header">
-                    <span class="author">{{ entry.publisher }}{% if entry.title %} - {{ entry.title }}{% endif %}</span>
-                    <span class="info">12 Jun 2016 17:49</span>
-                </div>
-            </header>
-            <section class="item-content less" onclick="$(this).toggleClass('less')">
-                {{ entry.content|safe }}
-            </section>
-            <section class="item-footer dropdown">
-                <div class="dropdown block-inline">
-                    <a href="#"><i class="fa fa-th-list"></i> Options</a>
-                    <ul>
-                        <li><a href="">hello</a></li>
-                        <li><a href="">hello</a></li>
-                        <li><a href="">hello</a></li>
-                        <li><a href="">hello</a></li>
-                        <li><a href="">hello</a></li>
-                    </ul>
-                </div>
-
-                <a href="" class="float-rt"><i class="fa fa-comment"></i> 12 Comments</a>
-            </section>
-        </div>
-    {% empty %}
-        <p>Empty</p>
-    {% endfor %}
+    {% include 'feed/listing.html' with entries=entries %}
 {% endblock content %}

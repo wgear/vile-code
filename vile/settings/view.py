@@ -46,4 +46,4 @@ STATICFILES_DIRS = (
 )
 
 # Upload avatars dir
-UPLOAD_AVATAR_DIR = os.path.join(ROOT_DIR, 'static', 'uploads', 'avatar')
+UPLOAD_AVATAR_DIR = 'static/uploads/avatar'

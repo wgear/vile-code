@@ -29,9 +29,13 @@
     padding: $default_padding
 
     &.navbar
-      a
+      a:not(.btn)
         display: block
         padding: $default_padding
+        word-break: break-all
+
+        &:hover
+          background: $back_link
 
   &.headed
     padding: 0

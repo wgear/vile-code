@@ -13,15 +13,19 @@
     min-height: 44px
     margin: 8px 1px 8px auto
 
-    &:before
-      display: block
-      clear: both
+    &.avatar
+      width: 50%
+      margin: 20px auto
+      img
+        max-width: 100%
+        display: block
+        margin: 0 auto
 
     &.invalid
       background: #ffa5a4
       font-weight: bold
 
-    input, select, textarea, .tokenize
+    input, select, textarea, .tokenize, .editor
       border: none
       outline: none
       display: block
@@ -40,6 +44,21 @@
     .tokenize
       float: right
       margin: 1px 0 0 0
+
+    textarea, .editor
+      display: inline-block
+      width: 100%
+      min-height: 48px
+      line-height: 24px
+      &[data-autoresize]
+        overflow: hidden
+        resize: none
+
+        -webkit-transition: height 0.2s
+        -moz-transition: height 0.2s
+        -ms-transition: height 0.2s
+        -o-transition: height 0.2s
+        transition: height 0.2s
 
   &.tab
     input, select, textarea, .tokenize
@@ -75,7 +94,7 @@
 
   &.flat
     margin: 3px 0
-    display: inline-block
+    display: inline-block !important
 
   &:hover
     background: lighten($headline, 10)

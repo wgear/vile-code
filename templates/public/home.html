@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load staticfiles datetime %}
 
 {% block extra_title %} - {{ club.title }}{% endblock extra_title %}
 
@@ -8,6 +8,30 @@
     <div class="header" style="background-image: url({% static 'media/space.jpg' %});"></div>
 </section>
 {% endblock extra %}
+
+{% block content %}
+    <!-- Publication Form -->
+    <div class="item block html-form wide">
+        <header>
+            <img src="{{ club.image }}" alt="Author">
+            <div class="header">
+                <span class="btn float-rt" onclick="Public.post('.editor')">Publish</span>
+                <span class="author">{{ club.title }}</span>
+                <span class="info">{{ ''|dtf }}</span>
+            </div>
+        </header>
+        <section class="item-content input">
+            <div data-autoresize="24" data-empty class="editor">
+                <span style="color: #888">What happend?</span>
+            </div>
+        </section>
+    </div>
+
+    <div data-fresh="entry">
+        {% include 'feed/listing.html' with entries=club.recent_entries %}
+    </div>
+{% endblock content %}
+
 
     <!-- Right side section -->
     <section class="panel">

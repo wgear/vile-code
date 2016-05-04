@@ -13,14 +13,16 @@ class RelatedFeeds(object):
     ORDER_BY = [
         '-publisher__is_confirmed',
         '-karma',
-        '-publisher__karma'
+        '-publisher__karma',
+        '-id'
     ]
 
     @staticmethod
     def get_queryset(search_term=None):
         qs = Entry.objects.exclude(publisher__is_closed=True, publisher__is_public=False)
         if search_term:
-            qs.filter(Q(title__contains=search_term) | Q(content__contains=search_term))
+            tags = Hashtag.get_or_create(search_term.split(','))
+            qs = qs.filter(Q(tags__in=tags) | Q(publisher__tags__in=tags))
 
         return qs.order_by(*RelatedFeeds.ORDER_BY)
 

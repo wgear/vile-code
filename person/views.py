@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import login, logout, authenticate
+from person.forms import UpdateAvatarForm
 
 
 def login_page(request):
@@ -28,3 +29,20 @@ def authorize(request):
 def out(request):
     logout(request)
     return redirect(reverse('home'))
+
+
+def avatar(request):
+    if request.method == 'POST':
+        form = UpdateAvatarForm(
+            data=request.POST,
+            files=request.FILES,
+            instance=request.user
+        )
+
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('person:avatar'))
+    form = UpdateAvatarForm()
+    return render(request, 'person/change_avatar.html', {
+        'form': form
+    })

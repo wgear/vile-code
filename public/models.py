@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+from django.templatetags.static import static
 from feed.models import Hashtag
 from person.models import Person
 from vile.service import Votable
@@ -26,3 +27,14 @@ class Public(models.Model, Votable):
     is_indexed = models.BooleanField(default=True, blank=True, db_index=True)
     is_closed = models.BooleanField(default=False, blank=True, db_index=True)
     is_confirmed = models.BooleanField(default=False, blank=True, db_index=True)
+
+    @property
+    def image(self):
+        if not self.avatar:
+            return static('media/noavatar.jpg')
+        return '/{}'.format(self.avatar.url)
+
+    @property
+    def recent_entries(self):
+        from feed.models import Entry
+        return Entry.objects.filter(publisher=self).order_by('-id').all()[:50]

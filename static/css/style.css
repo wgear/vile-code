@@ -44,9 +44,12 @@ body {
     padding: 8px 14px; }
   .block .block-body {
     padding: 8px 14px; }
-    .block .block-body.navbar a {
+    .block .block-body.navbar a:not(.btn) {
       display: block;
-      padding: 8px 14px; }
+      padding: 8px 14px;
+      word-break: break-all; }
+      .block .block-body.navbar a:not(.btn):hover {
+        background: rgba(90, 131, 135, 0.53); }
   .block.headed {
     padding: 0; }
 
@@ -252,6 +255,11 @@ a, .droplet {
     .item header .info {
       color: #aaaaaa;
       font-size: 12px; }
+    .item header .btn {
+      display: inline-block;
+      width: auto;
+      vertical-align: top;
+      padding: 12px 16px; }
   .item .item-footer {
     padding: 8px 14px;
     border-top: 1px solid #eeeeee; }
@@ -281,13 +289,17 @@ a, .droplet {
 .html-form .input {
   min-height: 44px;
   margin: 8px 1px 8px auto; }
-  .html-form .input:before {
-    display: block;
-    clear: both; }
+  .html-form .input.avatar {
+    width: 50%;
+    margin: 20px auto; }
+    .html-form .input.avatar img {
+      max-width: 100%;
+      display: block;
+      margin: 0 auto; }
   .html-form .input.invalid {
     background: #ffa5a4;
     font-weight: bold; }
-  .html-form .input input, .html-form .input select, .html-form .input textarea, .html-form .input .tokenize {
+  .html-form .input input, .html-form .input select, .html-form .input textarea, .html-form .input .tokenize, .html-form .input .editor {
     border: none;
     outline: none;
     display: block;
@@ -304,6 +316,19 @@ a, .droplet {
   .html-form .input .tokenize {
     float: right;
     margin: 1px 0 0 0; }
+  .html-form .input textarea, .html-form .input .editor {
+    display: inline-block;
+    width: 100%;
+    min-height: 48px;
+    line-height: 24px; }
+    .html-form .input textarea[data-autoresize], .html-form .input .editor[data-autoresize] {
+      overflow: hidden;
+      resize: none;
+      -webkit-transition: height 0.2s;
+      -moz-transition: height 0.2s;
+      -ms-transition: height 0.2s;
+      -o-transition: height 0.2s;
+      transition: height 0.2s; }
 .html-form.tab input, .html-form.tab select, .html-form.tab textarea, .html-form.tab .tokenize {
   display: block;
   width: 70%;
@@ -332,7 +357,7 @@ a, .droplet {
   cursor: pointer; }
   .btn.flat {
     margin: 3px 0;
-    display: inline-block; }
+    display: inline-block !important; }
   .btn:hover {
     background: #426f6f; }
 
