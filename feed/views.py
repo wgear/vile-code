@@ -48,7 +48,7 @@ def hashtags(request):
         qset = qset.filter(name__contains=search_term)
     qset = qset.order_by('-karma', 'name')
     return HttpResponse(
-        content=json.dumps([{'text': x.name, 'value': x.pk} for x in qset.all()[:50]]),
+        content=json.dumps([{'text': '#' + x.name, 'value': x.pk} for x in qset.all()[:50]]),
         content_type='application/json'
     )
 

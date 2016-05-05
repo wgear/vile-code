@@ -78,6 +78,11 @@ $(function () {
         }
     });
 
+    // Toggle nav
+    $('[data-toggle]').on('click', function(){
+        $($(this).attr('data-toggle')).slideToggle('fast');
+    });
+
     // Resize embed
     $(window).resize(function(){
         $('.embed.video').each(function(i, e){

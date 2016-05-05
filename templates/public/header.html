@@ -6,7 +6,15 @@
 <section class="club-nav">
     <div class="wrapper">
         <ul>
-            <li><a href="{% url 'club:home' club.pk %}">{{ club.title }}</a></li>
+            <li>
+                <span class="float-rt md-hide sm-show" data-toggle=".club-tag">
+                    <i class="fa fa-bars"></i>
+                </span>
+                <a href="{% url 'club:home' club.pk %}">@{{ club.title }}</a>
+            </li>
+            {% for tag in club.tags.all %}
+                <li class="club-tag"><a href="?hash={{ tag.name }}">{{ tag }}</a></li>
+            {% endfor %}
         </ul>
     </div>
 </section>

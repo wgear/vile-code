@@ -51,4 +51,4 @@ class Public(models.Model, Votable):
         super(Public, self).vote(author, positive)
         for person in self.founders.all():
             person.vote(author=author, positive=positive)
-        return self.owner.vote(author=author, positive=p)
+        return self.owner.vote(author=author, positive=positive)

@@ -15,3 +15,16 @@
         display: block
         cursor: pointer
         padding: 6px 12px
+        &:hover
+          color: white
+          background: $color_link
+
+    @media screen and (max-width: 760px)
+      li
+        display: block
+
+        [data-toggle]
+          padding: 6px 12px
+
+        &.club-tag
+          display: none

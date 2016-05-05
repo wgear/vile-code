@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.core.urlresolvers import reverse
 from public.forms import CreateClubForm
 from public.models import Public
-from feed.models import Entry
+from feed.models import Entry, Hashtag
 
 
 def create_club(request):
@@ -23,13 +23,22 @@ def club_homepage(request, id):
     try:
         club = Public.objects.get(pk=id)
     except Public.DoesNotExist:
-        return redirect(reverse('home'))
+        return redirect(reverse('404'))
 
     is_owner = club.owner_id == request.user.pk
     is_member = club.members.filter(id=request.user.pk).count() > 0
     is_founder = club.founders.filter(id=request.user.pk).count() > 0
 
     is_subscribed = is_owner or is_member or is_founder
+
+    # Get club entries
+    search_hash = request.GET.get('hash', '')
+    if search_hash:
+        club_entries = club.entry_set.filter(
+            tags__in=Hashtag.get_or_create(search_hash.split(','))
+        ).order_by('-karma')[:50]
+    else:
+        club_entries = club.recent_entries
 
     # Subscribe user
     subscribe = request.GET.get('subscribe')
@@ -49,6 +58,8 @@ def club_homepage(request, id):
 
     return render(request, 'public/home.html', {
         'club': club,
+        'hash': search_hash,
+        'entries': club_entries,
         'is_owner': is_owner,
         'is_member': is_member,
         'is_founder': is_founder,

@@ -18,7 +18,7 @@
         </div>
         <div class="input {% if form.errors.tags %}invalid{% endif %}">
             <label for="id_tags" class="table">{{ form.tags.label }}</label>
-            <select class="tokenize" name="tags" id="id_tags" multiple="multiple" data-src="{% url 'feed:hashtags' %}" data-max="5"></select>
+            {{ form.tags }}
         </div>
         <div class="input {% if form.errors.full_description %}invalid{% endif %}">
             <label for="id_full_description" class="table">{{ form.full_description.label }}</label>

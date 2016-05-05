@@ -30,7 +30,7 @@
             {% endif %}
 
             <a href="{% url 'feed:show' entry.pk %}">
-                <i class="fa fa-comment"></i> {{ entry.comments_count }} <span class="sm-hide">Comments</span>
+                {{ entry.comments_count }} Comments
             </a>
         </div>
     </section>

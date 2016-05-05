@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import re
+import datetime, time
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.db.models import Q
@@ -20,7 +21,12 @@ class RelatedFeeds(object):
 
     @staticmethod
     def get_queryset(search_term=None):
-        qs = Entry.objects.exclude(publisher__is_closed=True, publisher__is_public=False)
+        qs = Entry.objects.exclude(
+            publisher__is_closed=True,
+            publisher__is_public=False,
+            created_at__lt=datetime.datetime.now() - datetime.timedelta(days=1)
+        )
+
         if search_term:
             tags = Hashtag.get_or_create(search_term.split(','))
             qs = qs.filter(Q(tags__in=tags) | Q(publisher__tags__in=tags))

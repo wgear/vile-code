@@ -21,7 +21,7 @@
             <ul>
                 <li id="brand">
                     <a href="{% url 'home' %}">
-                        {% block extra_v %}{% endblock %}FeedLine
+                        {% block extra_v %}{% endblock %}<span class="xs-hide">FeedLine</span><span style="display: none" class="xs-show">FL</span>
                     </a>
                 </li>
                 <li id="form-search">
@@ -34,12 +34,8 @@
 
             {% if user.is_authenticated %}
             <ul class="float-rt sm-hide">
-                <li class="dropdown">
-                    <a href="#">{{ user.username }}</a>
-                    <ul class="rt">
-                        <li><a href="/profile.html">Profile</a></li>
-                    </ul>
-                </li>
+                <li class="xs-hide"><a href="#">{{ user.username }}</a></li>
+                <li style="display: none" class="xs-show"><a href="#"><i class="fa fa-user"></i></a></li>
                 <li><a href="{% url 'person:logout' %}"><i class="fa fa-power-off"></i></a></li>
             </ul>
             {% endif %}
