@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ title }}{% block extra_title %}{% endblock %}</title>
+    <title>#{{ title }}{% block extra_title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/tokenize.css' %}">
@@ -21,7 +21,7 @@
             <ul>
                 <li id="brand">
                     <a href="{% url 'home' %}">
-                        {% block extra_v %}{% endblock %}<span class="xs-hide">FeedLine</span><span style="display: none" class="xs-show">FL</span>
+                        <img src="{% static 'media/hashorg.png' %}" alt="HashOrg">
                     </a>
                 </li>
                 <li id="form-search">

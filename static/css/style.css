@@ -146,6 +146,9 @@ body {
         font-weight: bold;
         font-size: 24px;
         float: left; }
+        .main-bar ul li#brand img {
+          margin: 3px;
+          max-height: 32px; }
       .main-bar ul li a {
         display: block;
         color: inherit;
