@@ -9,13 +9,13 @@ class Hashtag(models.Model, Votable):
     karma = models.IntegerField(db_index=True, default=0, blank=True)
 
     def __unicode__(self):
-        return '#{}'.format(self.name)
+        return '#{}'.format(self.name.replace(' ', ''))
 
     @staticmethod
     def get_or_create(tags_list, filtering=None):
         result = []
         for tag in tags_list:
-            tag = tag.strip().lower()
+            tag = unicode(tag.strip().lower().replace(' ', ''))
             try:
                 pk = int(tag)
                 result.append(Hashtag.objects.get(pk=pk))
@@ -23,12 +23,14 @@ class Hashtag(models.Model, Votable):
                 if len(tag) < 2:
                     continue
 
-                try:
-                    instance = Hashtag.objects.get(name=tag)
-                except Hashtag.DoesNotExist:
-                    instance = Hashtag(name=tag)
-                    instance.save()
-                result.append(instance)
+                instances = Hashtag.objects.filter(name=tag)
+                if instances.count() > 0:
+                    for tag in instances:
+                        result.append(tag)
+                else:
+                    tag = Hashtag(name=tag)
+                    tag.save()
+                    result.append(tag)
         return result if not filtering else map(filtering, result)
 
 
@@ -50,14 +52,6 @@ class Entry(models.Model, Votable):
     @property
     def comments_count(self):
         return Comment.objects.filter(target=self).count()
-
-    @staticmethod
-    def detect_hashtags(content):
-        patt = re.compile(r'#\w+')
-        tags = patt.findall(content)
-        if tags:
-            return Hashtag.get_or_create(map(lambda x: x[1:] if x[0] == '#' else x, list(tags)))
-        return []
 
     def vote(self, author, positive=True):
         super(Entry, self).vote(author, positive)

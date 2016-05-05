@@ -73,28 +73,35 @@ class RelatedTags(object):
 
 
 class ContentProcessor(object):
-    LINKS = re.compile(r'((link|url)(["\'](.+?)["\'])*:(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+))\s')
-    IMAGES = re.compile(r'((image|img)(["\'](.+?)["\'])*:(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+))\s')
-    YOUTUBE = re.compile(r'((youtube|yt):(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+))\s')
-    HASHTAGS = re.compile(r'#(\w+)')
+    LINKS = re.compile(ur'((link|url)(["\'](.+?)["\'])*:(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+))\s')
+    IMAGES = re.compile(ur'((image|img)(["\'](.+?)["\'])*:(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+))\s')
+    YOUTUBE = re.compile(ur'((youtube|yt):(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+))\s')
+    HASHTAGS = re.compile(ur'#([^\s]+)')
 
     def __init__(self, content='', max_length=255, max_lines=5):
-        self.content = content + ' '
+        self.content = unicode(content + u' ')
+        self.max_length = max_length
+        self.max_lines = max_lines
 
     def __str__(self):
         return self.full()
 
     def short(self):
-        out = '\n'.join(self.content.split('\n')[:5])
-        out = out[:255]
+        out = u'\n'.join(self.content.split(u'\n')[:self.max_lines])
+        out = out[:self.max_length]
 
         if len(out) < len(self.content):
-            out += '...'
+            out += u'...'
 
         return ContentProcessor.compile(out)
 
     def full(self):
         return ContentProcessor.compile(self.content)
+
+    @staticmethod
+    def get_hashtags(text):
+        text = unicode(text)
+        return ContentProcessor.HASHTAGS.findall(text)
 
     @staticmethod
     def compile(text):
@@ -123,10 +130,10 @@ class ContentProcessor(object):
 
     @staticmethod
     def _clear_tags(text):
-        return text.replace('<', '&lt;').replace('>', '&gt;')
+        return text.replace('<', u'&lt;').replace('>', u'&gt;')
 
     @staticmethod
-    def _compile_lines(text, delimiter='<br>'):
+    def _compile_lines(text, delimiter=u'<br>'):
         return text.replace('\n', delimiter)
 
     @staticmethod
@@ -136,7 +143,7 @@ class ContentProcessor(object):
             src = link[0]
             url = link[4]
             title = link[3].strip() or url
-            out = out.replace(src, '<a href="{}" target="_blank">{}</a>'.format(url, title))
+            out = out.replace(src, u'<a href="{}" target="_blank">{}</a>'.format(url, title))
 
         return out
 
@@ -147,17 +154,19 @@ class ContentProcessor(object):
             src = link[0]
             url = link[4]
             title = link[3].strip() or url
-            out = out.replace(src, '<a href="{}" target="_blank">'
-                                   '<img class="embed image" src="{}" alt="{}">'
-                                   '</a>'.format(url, url, title))
+            out = out.replace(src, u'<a href="{}" target="_blank">'
+                                   u'<img class="embed image" src="{}" alt="{}">'
+                                   u'</a>'.format(url, url, title))
 
         return out
 
     @staticmethod
     def _compile_hashtags(text, tags):
+        print tags, ' in ', text
         out = text
         for tag in tags:
-            out = out.replace('#' + tag, '<a href="/?hash={}">{}</a>'.format(tag, '#' + tag))
+            tag = unicode(tag)
+            out = out.replace(u'#' + tag, u'<a href="?hash={}">{}</a>'.format(unicode(tag), u'#' + tag))
 
         return out
 
@@ -170,10 +179,10 @@ class ContentProcessor(object):
             if code is None:
                 continue
 
-            out = out.replace(src, '<iframe '
-                                   'class="embed video youtube" '
-                                   'src="https://www.youtube.com/embed/{}" '
-                                   'frameborder="0" allowfullscreen>'
-                                   '</iframe>'.format(code))
+            out = out.replace(src, u'<iframe '
+                                   u'class="embed video youtube" '
+                                   u'src="https://www.youtube.com/embed/{}" '
+                                   u'frameborder="0" allowfullscreen>'
+                                   u'</iframe>'.format(unicode(code)))
 
         return out

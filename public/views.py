@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from public.forms import CreateClubForm
 from public.models import Public
 from feed.models import Entry, Hashtag
+from vile.service import ContentProcessor
 
 
 def create_club(request):
@@ -32,11 +33,12 @@ def club_homepage(request, id):
     is_subscribed = is_owner or is_member or is_founder
 
     # Get club entries
-    search_hash = request.GET.get('hash', '')
+    search_hash = unicode(request.GET.get('hash', '')).lower()
     if search_hash:
         club_entries = club.entry_set.filter(
-            tags__in=Hashtag.get_or_create(search_hash.split(','))
+            tags__in=Hashtag.get_or_create(search_hash.split(u','))
         ).order_by('-karma')[:50]
+        print club_entries, search_hash
     else:
         club_entries = club.recent_entries
 
@@ -72,7 +74,8 @@ def club_post(request, id):
         pub = Public.objects.get(pk=id)
     except Public.DoesNotExist:
         return HttpResponse(content='<p>Error</p>', content_type='text/html')
-    hastags = Entry.detect_hashtags(request.POST.get('content', ''))
+    hastags = ContentProcessor.get_hashtags(unicode(request.POST.get('content', '')))
+    hastags = Hashtag.get_or_create(hastags)
     entry = Entry(content=request.POST.get('content', ''), publisher=pub, owner=request.user)
     entry.save()
     for tag in hastags:

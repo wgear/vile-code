@@ -16,4 +16,7 @@ def content_filter(value, full=None):
     :return:
     """
     value = ContentProcessor(value)
-    return safe(value.full() if full else value.short())
+    try:
+        return safe(value.full() if full else value.short())
+    except:
+        return ContentProcessor._clear_tags(value)
