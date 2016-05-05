@@ -33,10 +33,16 @@
             </ul>
 
             {% if user.is_authenticated %}
-            <ul class="float-rt sm-hide">
+            <ul class="float-rt">
                 <li class="xs-hide"><a href="#">{{ user.username }}</a></li>
                 <li style="display: none" class="xs-show"><a href="#"><i class="fa fa-user"></i></a></li>
-                <li><a href="{% url 'person:logout' %}"><i class="fa fa-power-off"></i></a></li>
+                <li class="xs-hide"><a href="{% url 'person:logout' %}"><i class="fa fa-power-off"></i></a></li>
+            </ul>
+            {% else %}
+            <ul class="float-rt">
+                <li class="xs-hide"><a href="{% url 'person:login' %}">Login</a></li>
+                <li style="display: none" class="xs-show"><a href="{% url 'person:login' %}"><i class="fa fa-user"></i></a></li>
+                <li class="xs-hide"><a href="{% url 'person:logout' %}"><i class="fa fa-power-off"></i></a></li>
             </ul>
             {% endif %}
         </div>
