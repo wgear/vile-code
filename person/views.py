@@ -23,7 +23,7 @@ def authorize(request):
     if user is not None and user.is_active:
         login(request, user)
         return redirect(reverse('home'))
-    return redirect(reverse('login') + '?err=1')
+    return redirect(reverse('person:login') + '?err=1')
 
 
 def out(request):

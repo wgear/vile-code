@@ -21,7 +21,7 @@
             <ul>
                 <li id="brand">
                     <a href="{% url 'home' %}">
-                        {% block extra_v %}{% endblock %}V
+                        {% block extra_v %}{% endblock %}FeedLine
                     </a>
                 </li>
                 <li id="form-search">
@@ -33,7 +33,7 @@
             </ul>
 
             {% if user.is_authenticated %}
-            <ul class="float-rt">
+            <ul class="float-rt sm-hide">
                 <li class="dropdown">
                     <a href="#">{{ user.username }}</a>
                     <ul class="rt">
@@ -65,98 +65,9 @@
             {% endblock rside %}
         </section>
 
-
         <!-- Content section -->
         <section class="content">
-            {% block content %}
-            <!-- items list -->
-            <div class="item block">
-                <header>
-                    <img src="assets/media/img.jpg" alt="Author">
-                    <div class="header">
-                        <span class="author">Some author</span>
-                        <span class="info">12 Jun 2016 17:49</span>
-                    </div>
-                </header>
-                <section class="item-content">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
-                </section>
-                <section class="item-footer">
-                    <div class="dropdown block-inline">
-                        <a href="#"><i class="fa fa-th-list"></i> Options</a>
-                        <ul>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                        </ul>
-                    </div>
-
-                    <a href="" class="float-rt"><i class="fa fa-comment"></i> 12 Comments</a>
-                </section>
-            </div>
-
-            <div class="item block">
-                <header>
-                    <img src="assets/media/img.jpg" alt="Author">
-                    <div class="header">
-                        <span class="author">Some author</span>
-                        <span class="info">12 Jun 2016 17:49</span>
-                    </div>
-                </header>
-                <section class="item-content">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
-                </section>
-                <section class="item-footer dropdown">
-                    <div class="dropdown block-inline">
-                        <a href="#"><i class="fa fa-th-list"></i> Options</a>
-                        <ul>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                        </ul>
-                    </div>
-
-                    <a href="" class="float-rt"><i class="fa fa-comment"></i> 12 Comments</a>
-                </section>
-            </div>
-
-            <div class="item block">
-                <header>
-                    <img src="assets/media/img.jpg" alt="Author">
-                    <div class="header">
-                        <span class="author">Some author</span>
-                        <span class="info">12 Jun 2016 17:49</span>
-                    </div>
-                </header>
-                <section class="item-content less" onclick="$(this).toggleClass('less')">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cumque ducimus ea eveniet molestiae, nihil obcaecati odio odit quae quod sed sint ullam voluptatibus! Delectus fuga quisquam recusandae similique voluptatibus.
-                </section>
-                <section class="item-footer dropdown">
-                    <div class="dropdown block-inline">
-                        <a href="#"><i class="fa fa-th-list"></i> Options</a>
-                        <ul>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                            <li><a href="">hello</a></li>
-                        </ul>
-                    </div>
-
-                    <a href="" class="float-rt"><i class="fa fa-comment"></i> 12 Comments</a>
-                </section>
-            </div>
-            <!-- end item list -->
-            {% endblock content %}
+            {% block content %}{% endblock content %}
         </section>
     </section>
 </body>

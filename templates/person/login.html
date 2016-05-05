@@ -9,7 +9,7 @@
             {% for msg in message %}
                 <p>{{ msg }}</p>
             {% endfor %}
-            <form action="{% url 'auth' %}" method="post">
+            <form action="{% url 'person:auth' %}" method="post">
                 {% csrf_token %}
                 <div class="input">
                     <input type="text" name="username" placeholder="Email or Login">
