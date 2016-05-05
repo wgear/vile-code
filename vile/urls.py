@@ -8,6 +8,9 @@ urlpatterns = [
     # Home page
     url(r'^$', home, name='home'),
 
+    # Page not found
+    url(r'^404$', home, name='404'),
+
     # Module Feed
     url(r'^feed/', include('feed.urls', namespace='feed')),
 

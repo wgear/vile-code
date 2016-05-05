@@ -37,11 +37,19 @@ class Entry(models.Model, Votable):
     content = models.TextField()
 
     tags = models.ManyToManyField(Hashtag)
+    owner = models.ForeignKey('person.Person')
     publisher = models.ForeignKey('public.Public')
 
     karma = models.IntegerField(db_index=True, default=0, blank=True)
     created_at = models.DateTimeField(auto_now=True, blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    @property
+    def comments(self):
+        return Comment.objects.filter(target=self).order_by('-id')
+
+    @property
+    def comments_count(self):
+        return Comment.objects.filter(target=self).count()
 
     @staticmethod
     def detect_hashtags(content):
@@ -50,3 +58,21 @@ class Entry(models.Model, Votable):
         if tags:
             return Hashtag.get_or_create(map(lambda x: x[1:] if x[0] == '#' else x, list(tags)))
         return []
+
+    def vote(self, author, positive=True):
+        super(Entry, self).vote(author, positive)
+        for tag in self.tags.all():
+            tag.vote(author=author, positive=positive)
+            tag.save()
+
+        return self.publisher.vote(author=author, positive=positive)
+
+
+class Comment(models.Model, Votable):
+    target = models.ForeignKey(Entry)
+
+    content = models.TextField()
+    publisher = models.ForeignKey('person.Person')
+
+    karma = models.IntegerField(db_index=True, default=0, blank=True)
+    created_at = models.DateTimeField(auto_now=True, blank=True, null=True)

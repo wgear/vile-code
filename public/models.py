@@ -29,6 +29,14 @@ class Public(models.Model, Votable):
     is_confirmed = models.BooleanField(default=False, blank=True, db_index=True)
 
     @property
+    def new_members(self):
+        return self.members.order_by('-id')[:9]
+
+    @property
+    def recent_founders(self):
+        return self.founders.order_by('-id')
+
+    @property
     def image(self):
         if not self.avatar:
             return static('media/noavatar.jpg')
@@ -38,3 +46,9 @@ class Public(models.Model, Votable):
     def recent_entries(self):
         from feed.models import Entry
         return Entry.objects.filter(publisher=self).order_by('-id').all()[:50]
+
+    def vote(self, author, positive=True):
+        super(Public, self).vote(author, positive)
+        for person in self.founders.all():
+            person.vote(author=author, positive=positive)
+        return self.owner.vote(author=author, positive=p)

@@ -25,21 +25,37 @@
       color: #aaaaaa
       font-size: 12px
 
-
-    .btn
-      display: inline-block
-      width: auto
-      vertical-align: top
-      padding: 12px 16px
-
-    .karma
-      min-width: 80px
-      line-height: 42px
-      padding: 12px 16px
+    .publish
+      width: 80px
+      display: inline-block !important
+      float: right !important
 
   .item-footer
     padding: $default_padding
     border-top: 1px solid #eeeeee
+
+    .karma
+      padding: 0
+      min-width: 30px
+      line-height: 18px
+      text-align: center
+      display: inline-block
+
+    i.fa
+      display: inline-block
+      width: 20px
+      text-align: center
+
+    .btn
+      padding: 0
+      width: auto
+      color: darkred
+      vertical-align: top
+      display: inline-block
+      background: transparent
+
+      &:first-child
+        color: teal
 
   .item-content
     padding: $default_padding

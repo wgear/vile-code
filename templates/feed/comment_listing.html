@@ -1,0 +1,8 @@
+{% load staticfiles %}
+{% load content %}
+
+{% for comment in comments %}
+    {% include 'feed/comment_detail.html' with comment=comment %}
+{% empty %}
+    <div class="empty">No comments yet</div>
+{% endfor %}

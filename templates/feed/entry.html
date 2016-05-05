@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block extra %}
+    {% include 'public/header.html' %}
+{% endblock extra %}
+
+{% block content %}
+    {% include 'feed/entry_detail.html' with is_detail=entry.pk %}
+
+    <!-- Comments form -->
+    {% include 'feed/comments_form.html' with form=comment_form entry=entry %}
+
+    <!-- Comments listing -->
+    <div data-fresh="comments">
+        {% include 'feed/comment_listing.html' with comments=entry.comments.all %}
+    </div>
+{% endblock content %}
+
+{% block rside %}
+    {% include 'public/rside.html' %}
+{% endblock rside %}

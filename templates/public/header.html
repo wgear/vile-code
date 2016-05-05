@@ -1,0 +1,12 @@
+{% load staticfiles %}
+<section class="profile">
+    <div class="header" style="background-image: url({% static 'media/space.jpg' %});"></div>
+</section>
+
+<section class="club-nav">
+    <div class="wrapper">
+        <ul>
+            <li><a href="{% url 'club:home' club.pk %}">{{ club.title }}</a></li>
+        </ul>
+    </div>
+</section>

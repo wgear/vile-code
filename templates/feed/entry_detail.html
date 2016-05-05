@@ -1,0 +1,37 @@
+{% load content %}
+<div class="item block">
+    <header>
+        <img src="{{ entry.publisher.image }}" alt="{{ entry.publisher.title }}">
+        <div class="header">
+            <a href="{% url 'club:home' entry.publisher.pk %}" class="author">
+                {{ entry.publisher.title }}
+            </a>
+            <span class="info">{{ entry.owner.username }} at {{ entry.created_at }}</span>
+        </div>
+    </header>
+    <section class="item-content">
+        {{ entry.content|content:is_detail }}
+    </section>
+
+    <section class="item-footer">
+        {% if user.is_authenticated %}
+        <div class="float-rt">
+            <span class="btn" onclick="Vote('Entry.{{ entry.pk }}', 1)"><i class="fa fa-thumbs-up"></i></span>
+            <span class="karma" data-target="Entry.{{ entry.pk }}">{{ entry.karma }}</span>
+            <span class="btn" onclick="Vote('Entry.{{ entry.pk }}', 0)"><i class="fa fa-thumbs-down"></i></span>
+        </div>
+        {% endif %}
+
+        <div class="block-inline footer">
+            {% if entry.publisher.owner_id == user.pk or entry.owner_id == user.pk %}
+                <a href="">
+                    <i class="fa fa-trash"></i>
+                </a>
+            {% endif %}
+
+            <a href="{% url 'feed:show' entry.pk %}">
+                <i class="fa fa-comment"></i> {{ entry.comments_count }} <span class="sm-hide">Comments</span>
+            </a>
+        </div>
+    </section>
+</div>

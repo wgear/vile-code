@@ -1,0 +1,15 @@
+{% load staticfiles %}
+
+<div class="item block html-form wide">
+    <header>
+        <img src="{{ club.image }}" alt="Author">
+        <div class="header">
+            <span class="btn float-rt publish" onclick="Public.comment('.editor', '{{ entry.pk }}')">Publish</span>
+            <span class="author">{{ club.title }}</span>
+            <span class="info">{{ user.username }}</span>
+        </div>
+    </header>
+    <section class="item-content input">
+        <textarea data-autoresize="24" data-empty class="editor" placeholder="Somthin new"></textarea>
+    </section>
+</div>

@@ -1,34 +1,3 @@
 {% for entry in entries %}
-    <div class="item block">
-        <header>
-            <img src="{{ entry.publisher.image }}" alt="{{ entry.publisher.title }}">
-            <div class="header">
-                <div class="float-rt">
-                    <span class="btn" onclick="Vote('Entry.{{ entry.pk }}', 1)"><i class="fa fa-thumbs-up"></i></span>
-                    <span class="karma" data-target="Entry.{{ entry.pk }}">{{ entry.karma }}</span>
-                    <span class="btn" onclick="Vote('Entry.{{ entry.pk }}', 0)"><i class="fa fa-thumbs-down"></i></span>
-                </div>
-
-                <span class="author">{{ entry.publisher.title }}</span>
-                <span class="info">{{ entry.created_at }}</span>
-            </div>
-        </header>
-        <section class="item-content">
-            {{ entry.content }}
-        </section>
-        <section class="item-footer">
-            <div class="dropdown block-inline">
-                <a href="#"><i class="fa fa-th-list"></i> Options</a>
-                <ul>
-                    <li><a href="">hello</a></li>
-                    <li><a href="">hello</a></li>
-                    <li><a href="">hello</a></li>
-                    <li><a href="">hello</a></li>
-                    <li><a href="">hello</a></li>
-                </ul>
-            </div>
-
-            <a href="" class="float-rt"><i class="fa fa-comment"></i> 12 Comments</a>
-        </section>
-    </div>
+    {% include 'feed/entry_detail.html' with entry=entry is_detail=0 %}
 {% endfor %}

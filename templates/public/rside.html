@@ -1,0 +1,58 @@
+<!-- Club control -->
+<div class="headed block">
+    <header class="block-title">
+        {{ club.title }}
+        <span class="float-rt">{{ club.karma }}</span>
+    </header>
+    <section class="block-body navbar">
+        <img src="{{ club.image }}" alt="{{ club.title }}">
+        {% if is_owner %}
+        <a href=""><i class="fa fa-cog"></i> Settings</a>
+        <a href=""><i class="fa fa-bar-chart"></i> Statistic</a>
+        {% elif user.is_authenticated %}
+            {% if is_subscribed %}
+                <a href="?unsubscribe=me" class="btn block-block">Unsubscribe</a>
+            {% else %}
+                <a href="?subscribe=me" class="btn block-block">Subscribe</a>
+            {% endif %}
+        {% endif %}
+    </section>
+</div>
+
+<!-- Founders list -->
+<div class="headed block">
+    <header class="block-title">
+        Founders
+        <span class="float-rt">{{ club.founders.all.count }}</span>
+    </header>
+    <section class="block-body persons-tab">
+        <div class="person-item">
+            <img src="{{ club.owner.image }}" alt="{{ club.owner.username }}">
+            <span>{{ club.owner.username }}</span>
+        </div>
+        {% for person in club.recent_founders.all %}
+            <div class="person-item">
+                <img src="{{ person.image }}" alt="{{ person.username }}">
+                <span>{{ person.username }}</span>
+            </div>
+        {% endfor %}
+    </section>
+</div>
+
+<!-- Members list -->
+<div class="headed block">
+    <header class="block-title">
+        Members
+        <span class="float-rt">{{ club.members.all.count }}</span>
+    </header>
+    <section class="block-body persons-tab">
+        {% for person in club.new_members %}
+            <div class="person-item">
+                <img src="{{ person.image }}" alt="{{ person.username }}">
+                <span>{{ person.username }}</span>
+            </div>
+        {% empty %}
+            <div class="empty">No members found</div>
+        {% endfor %}
+    </section>
+</div>

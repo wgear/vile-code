@@ -18,6 +18,13 @@
   @media screen and (min-width: 761px)
     display: block !important
 
+.empty
+  display: block
+  padding: $default_padding
+  text-align: center
+  color: #000000
+  background: white
+
 .fix
   clear: both
 
@@ -47,11 +54,39 @@
   .block-body
     padding: $default_padding
 
+    img
+      max-width: 100%
+      margin: 0 0 10px 0
+
+    &.persons-tab
+      .person-item
+        margin: 0 2px 5px 2px
+        display: inline-block
+        width: 80px
+        overflow: hidden
+        height: 84px
+
+        img
+          width: 64px
+          height: 64px
+          border-radius: 50%
+          display: block
+          margin: 0 auto
+
+        span
+          display: block
+          text-align: center
+
     &.navbar
       a:not(.btn)
         display: block
         padding: $default_padding
         word-break: break-all
+
+        i.fa
+          display: inline-block
+          width: 20px
+          text-align: center
 
         &:hover
           background: $back_link
@@ -109,8 +144,8 @@
           background: $menubar_hover
 
 .body
-  padding: $area_padding 0 0 0
-  height: 100%
+  padding: $area_padding 0 50px 0
+  min-height: 100%
 
   .content
     width: auto

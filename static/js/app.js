@@ -65,19 +65,27 @@ $(function () {
 
     // Autoresize event
     $('[data-autoresize]').on('keydown', function(){
-        AutoResize(this, $(this).attr('data-autoresize'), $(this).attr('data-wordcount'));
+        AutoResize(this, $(this).attr('data-autoresize'));
     });
 
     // Activate editor
-    $('.editor').on('click', function(){
+    $('.editor:first-child').focus().keydown();
+    $('.editor').on('keydown', function(){
         $(this).attr('contenteditable', 'true');
         if ( $(this).is('[data-empty]') ) {
             $(this).find('*').remove();
             $(this).removeAttr('data-empty');
         }
-
-        return $(this).focus();
     });
+
+    // Resize embed
+    $(window).resize(function(){
+        $('.embed.video').each(function(i, e){
+            $(e).css('height', ($(e).width() / (16 / 9)) + 'px')
+        });
+    });
+
+    $(window).resize();
 });
 
 
@@ -88,36 +96,19 @@ $(function () {
  * @returns {*|jQuery}
  * @constructor
  */
-function AutoResize(object, lh, wc) {
-    var lines = ($(object).html().split('<br>') || $(object).val().split('\n')).length + 1;
+function AutoResize(object, lh) {
+    var lines = ($(object).val().split('\n') || $(object).html().split('<br>')).length + 1;
     var line_height = parseInt(lh || 24);
-    var word_count = wc || null;
-
-    if ( word_count ) {
-        var tokens = ($(object).text() || $(object).val()).split(' '), words = [];
-        tokens.forEach(function(i){
-            var st = i.split('\n');
-            for ( var k = 0; k < st.length; k++ ) {
-                words.push(st[k]);
-            }
-        });
-        var cnt = 0;
-        for ( var i = 0; i < words.length; i++ ) {
-            var w = words[i].trim(',. !?-:');
-            if (w.length > 0) {
-                cnt++;
-            }
-        }
-
-        $(word_count).text($(word_count).attr('data-wc') + ' ' + cnt);
-    }
-
     return $(object).css({
         height: (lines * line_height) + 'px'
     });
 }
 
 
+/**
+ * Public functionality
+ * @type {{post: Public.post}}
+ */
 var Public = {
     post: function (input) {
         var val = ($(input).val() || $(input).html()).trim();
@@ -132,7 +123,28 @@ var Public = {
                 success: function(response) {
                     $(input).val('');
                     $(input).html('');
-                    $('[data-fresh="entry"]').prepend(response);
+                    $(input).keydown();
+                    $('[data-fresh="entry"]').prepend(response).find('.empty').slideUp();
+                }
+            });
+        }
+    },
+    comment: function (input, entry) {
+        var val = ($(input).val() || $(input).html()).trim();
+        if ( val.length > 1 && !$(input).is('[data-empty]') ) {
+            $.ajax({
+                url: '/feed/comment',
+                method: 'post',
+                data: {
+                    target: entry,
+                    content: $(input).val() || $(input).html()
+                },
+                dateType: 'html',
+                success: function(response) {
+                    $(input).val('');
+                    $(input).html('');
+                    $(input).keydown();
+                    $('[data-fresh="comments"]').prepend(response).find('.empty').slideUp();
                 }
             });
         }
