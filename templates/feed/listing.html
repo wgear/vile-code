@@ -1,3 +1,6 @@
 {% for entry in entries %}
     {% include 'feed/entry_detail.html' with entry=entry is_detail=0 %}
 {% endfor %}
+{% if has_next %}
+    <a href="javascript:void(0);" class="btn block-block" onclick="pager.load_next(this)">Load more</a>
+{% endif %}

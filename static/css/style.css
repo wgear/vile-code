@@ -13,6 +13,9 @@ body {
   padding: 42px 0 50px 0;
   min-width: 320px; }
 
+html {
+  overflow-y: scroll; }
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -139,16 +142,24 @@ body {
         color: whitesmoke;
         font-weight: bold;
         background: transparent;
-        margin: 0 0 0 5px; }
+        margin: 0 0 0 5px;
+        font-style: italic; }
       .main-bar ul li#form-search a {
         display: inline-block !important; }
       .main-bar ul li#brand {
-        font-weight: bold;
-        font-size: 24px;
-        float: left; }
+        float: left;
+        height: 42px;
+        width: 48px;
+        overflow: hidden;
+        display: inline-block;
+        text-align: center; }
+        .main-bar ul li#brand a {
+          line-height: normal;
+          padding: 0;
+          margin: 0; }
         .main-bar ul li#brand img {
           margin: 3px;
-          max-height: 32px; }
+          max-width: 36px; }
       .main-bar ul li a {
         display: block;
         color: inherit;
@@ -444,7 +455,7 @@ a, .droplet {
   width: 100%;
   display: block; }
 .embed.image {
-  max-width: 50%;
+  max-width: 95%;
   display: block;
   margin: 0 auto;
   max-height: none !important;
@@ -474,7 +485,7 @@ a, .droplet {
       .club-nav ul li a {
         display: block;
         cursor: pointer;
-        padding: 6px 12px; }
+        padding: 8px 14px; }
         .club-nav ul li a:hover {
           color: white;
           background: darkslategrey; }

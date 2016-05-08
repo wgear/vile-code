@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import re
-import datetime, time
+from django.utils.timezone import now, timedelta
 from django.core.paginator import Paginator
 from django.conf import settings
 from django.db.models import Q
 from feed.models import Entry, Hashtag
+from public.models import Public
 
 
 class RelatedFeeds(object):
@@ -19,30 +20,49 @@ class RelatedFeeds(object):
         '-id'
     ]
 
+    RELATED_TIMEDELTA = {
+        'days': 7
+    }
+
     @staticmethod
-    def get_queryset(search_term=None):
+    def get_queryset(search_term=None, club=None):
+        # Exclude private publications
         qs = Entry.objects.exclude(
             publisher__is_closed=True,
-            publisher__is_public=False,
-            created_at__lt=datetime.datetime.now() - datetime.timedelta(days=1)
+            publisher__is_public=False
         )
 
+        # If club exists
+        if club is not None and isinstance(club, Public):
+            qs = qs.filter(publisher=club)
+
+        # Get only new publications
+        qs = qs.filter(created_at__gte=now() - timedelta(**RelatedFeeds.RELATED_TIMEDELTA))
+
+        # Filter by query term
         if search_term:
             tags = Hashtag.get_or_create(search_term.split(','))
             qs = qs.filter(Q(tags__in=tags) | Q(publisher__tags__in=tags))
 
+        # Return uniques ids
         return qs.values('id').distinct()
 
     @staticmethod
-    def list(search_term=None, page=1):
-        qs = RelatedFeeds.get_queryset(search_term=search_term)
+    def list(search_term=None, page=1, club=None):
+        qs = RelatedFeeds.get_queryset(search_term=unicode(search_term), club=club)
         paginator = Paginator(qs, settings.PER_PAGE)
+
         if page > paginator.num_pages:
             return []
 
+        cur_stack = paginator.page(page)
+        RelatedFeeds.has_next_page = cur_stack.has_next()
+
         return Entry.objects.filter(
-            id__in=map(lambda x: x['id'], paginator.page(page))
+            id__in=map(lambda x: x['id'], cur_stack)
         ).order_by(*RelatedFeeds.ORDER_BY)
+
+    has_next_page = False
 
 
 class RelatedTags(object):

@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'js/paginator.js' %}"></script>
+    <script type="text/javascript">
+        $(function(){
+            window.pager = new Paginator('{% url 'home' %}', {
+                hash: '{{ hash }}'
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
-    {% include 'feed/listing.html' with entries=entries %}
+    <div data-container>
+        {% include 'feed/listing.html' %}
+    </div>
 {% endblock content %}

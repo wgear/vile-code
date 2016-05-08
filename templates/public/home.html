@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 {% load staticfiles datetime %}
 
-{% block extra_title %} - {{ club.title }}{% endblock extra_title %}
+{% block extra_title %}{{ club.title }} | {% endblock extra_title %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'js/paginator.js' %}"></script>
+    <script type="text/javascript">
+        $(function(){
+            window.pager = new Paginator('{% url 'club:home' club.pk %}', {
+                hash: '{{ hash }}'
+            });
+        });
+    </script>
+{% endblock %}
 
 {% block extra %}
     {% include 'public/header.html' %}
@@ -14,8 +25,8 @@
     {% endif %}
 
     <!-- Post listing -->
-    <div data-fresh="entry">
-        {% include 'feed/listing.html' with entries=entries %}
+    <div data-fresh="entry" data-container>
+        {% include 'feed/listing.html' %}
     </div>
 {% endblock content %}
 

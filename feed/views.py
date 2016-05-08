@@ -9,11 +9,27 @@ from django.shortcuts import render, HttpResponse, redirect
 
 
 def home(request):
-    entries = RelatedFeeds.list(request.GET.get('hash'), request.GET.get('page', 1))
+    try:
+        current_page = int(request.GET.get('page', 1))
+    except:
+        current_page = 1
 
-    return render(request, 'feed/home.html', {
+    if current_page < 1:
+        current_page = 1
+
+    entries = RelatedFeeds.list(
+        search_term=request.GET.get('hash', ''),
+        page=current_page
+    )
+
+    template_name = 'feed/home.html'
+    if current_page > 1:
+        template_name = 'feed/listing.html'
+
+    return render(request, template_name, {
         'hash': request.GET.get('hash', ''),
-        'entries': entries
+        'entries': entries,
+        'has_next': RelatedFeeds.has_next_page
     })
 
 

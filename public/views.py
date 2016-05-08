@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from public.forms import CreateClubForm
 from public.models import Public
 from feed.models import Entry, Hashtag
-from vile.service import ContentProcessor
+from vile.service import ContentProcessor, RelatedFeeds
 
 
 def create_club(request):
@@ -33,14 +33,19 @@ def club_homepage(request, id):
     is_subscribed = is_owner or is_member or is_founder
 
     # Get club entries
-    search_hash = unicode(request.GET.get('hash', '')).lower()
-    if search_hash:
-        club_entries = club.entry_set.filter(
-            tags__in=Hashtag.get_or_create(search_hash.split(u','))
-        ).order_by('-karma')[:50]
-        print club_entries, search_hash
-    else:
-        club_entries = club.recent_entries
+    search_hash = request.GET.get('hash', '')
+    try:
+        current_page = int(request.GET.get('page', 1))
+        if current_page < 1:
+            current_page = 1
+    except:
+        current_page = 1
+
+    club_entries = RelatedFeeds.list(
+        search_term=search_hash,
+        page=current_page,
+        club=club
+    )
 
     # Subscribe user
     subscribe = request.GET.get('subscribe')
@@ -58,10 +63,17 @@ def club_homepage(request, id):
         club.members.remove(request.user)
         club.save()
 
-    return render(request, 'public/home.html', {
+    template_name = 'public/home.html'
+    if current_page > 1:
+        template_name = 'feed/listing.html'
+
+    return render(request,
+        template_name=template_name,
+        context={
         'club': club,
         'hash': search_hash,
         'entries': club_entries,
+        'has_next': RelatedFeeds.has_next_page,
         'is_owner': is_owner,
         'is_member': is_member,
         'is_founder': is_founder,

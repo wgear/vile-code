@@ -5,7 +5,7 @@ import os
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 # Rows per page
-PER_PAGE = 20
+PER_PAGE = 10
 
 # Templates settings
 TEMPLATES = [
