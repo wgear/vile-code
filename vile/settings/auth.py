@@ -24,11 +24,3 @@ AUTH_PASSWORD_VALIDATORS = [
 # Django auth settings
 LOGIN_URL = '/person/login/'
 LOGIN_REDIRECT_URL = '/me'
-
-# Allauth
-# AUTHENTICATION_BACKENDS = (
-    # 'django.contrib.auth.backends.ModelBackend',
-    # 'allauth.account.auth_backends.AuthenticationBackend',
-# )
-
-
