@@ -4,26 +4,34 @@ from vile.service import RelatedFeeds
 from feed import models as feed_models
 from person import models as person_models
 from public import models as public_models
+from public.views import club_homepage
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, HttpResponse, redirect
 
 
-def home(request):
-    try:
-        current_page = int(request.GET.get('page', 1))
-    except:
-        current_page = 1
+def handle_public_home(request):
+    if not request.subdomain:
+        return
 
-    if current_page < 1:
-        current_page = 1
+    public = public_models.Public.objects.filter(slug__iexact=request.subdomain).first()
+    if not public:
+        return
+
+    return club_homepage(request, public.pk)
+
+
+def home(request):
+    public = handle_public_home(request)
+    if public is not None:
+        return public
 
     entries = RelatedFeeds.list(
         search_term=request.GET.get('hash', ''),
-        page=current_page
+        page=request.current_page
     )
 
     template_name = 'feed/home.html'
-    if current_page > 1:
+    if request.current_page > 1:
         template_name = 'feed/listing.html'
 
     return render(request, template_name, {

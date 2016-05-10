@@ -34,16 +34,9 @@ def club_homepage(request, id):
 
     # Get club entries
     search_hash = request.GET.get('hash', '')
-    try:
-        current_page = int(request.GET.get('page', 1))
-        if current_page < 1:
-            current_page = 1
-    except:
-        current_page = 1
-
     club_entries = RelatedFeeds.list(
         search_term=search_hash,
-        page=current_page,
+        page=request.current_page,
         club=club
     )
 
@@ -64,21 +57,22 @@ def club_homepage(request, id):
         club.save()
 
     template_name = 'public/home.html'
-    if current_page > 1:
+    if request.current_page > 1:
         template_name = 'feed/listing.html'
 
     return render(request,
         template_name=template_name,
         context={
-        'club': club,
-        'hash': search_hash,
-        'entries': club_entries,
-        'has_next': RelatedFeeds.has_next_page,
-        'is_owner': is_owner,
-        'is_member': is_member,
-        'is_founder': is_founder,
-        'is_subscribed': is_subscribed
-    })
+            'club': club,
+            'hash': search_hash,
+            'entries': club_entries,
+            'has_next': RelatedFeeds.has_next_page,
+            'is_owner': is_owner,
+            'is_member': is_member,
+            'is_founder': is_founder,
+            'is_subscribed': is_subscribed
+        }
+    )
 
 
 def club_post(request, id):

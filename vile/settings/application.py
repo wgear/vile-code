@@ -53,6 +53,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'vile.middleware.subdomain.SubdomainMiddleware',
+    'vile.middleware.pagination.PaginationMiddleware',
 ]
 
 # Base Url configuration
