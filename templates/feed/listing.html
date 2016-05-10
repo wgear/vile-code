@@ -1,6 +1,9 @@
+{% load i18n %}
 {% for entry in entries %}
     {% include 'feed/entry_detail.html' with entry=entry is_detail=0 %}
+{% empty %}
+    <div class="empty">{% trans 'No publications found' %}</div>
 {% endfor %}
 {% if has_next %}
-    <a href="javascript:void(0);" class="btn block-block" onclick="pager.load_next(this)">Load more</a>
+    <a href="javascript:void(0);" class="btn block-block" onclick="pager.load_next(this)">{% trans 'Load more' %}</a>
 {% endif %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block extra_title %}
+    {% trans 'Profile' %}
+    {% if not profile.first_name or not profile.last_name %}
+        {{ profile.username }}
+    {% else %}
+        {{ profile.first_name }} ({{ profile.username }}) {{ profile.last_name }}
+    {% endif %}
+    |
+{% endblock %}
+
+{% block content %}
+    <p class="empty">{% trans 'No messages found' %}</p>
+{% endblock %}
+
+{% block rside %}
+    {% include 'person/profile-rside.html' %}
+{% endblock %}

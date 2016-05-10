@@ -1,8 +1,9 @@
 {% load staticfiles %}
 {% load content %}
+{% load i18n %}
 
 {% for comment in comments %}
     {% include 'feed/comment_detail.html' with comment=comment %}
 {% empty %}
-    <div class="empty">No comments yet</div>
+    <div class="empty">{% trans 'No comments yet' %}</div>
 {% endfor %}

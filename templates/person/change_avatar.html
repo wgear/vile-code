@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load staticfiles i18n %}
 
 {% block content %}
     <form action="" id="avatar-form" method="post" enctype="multipart/form-data" class="block html-form tab flat">
         {% csrf_token %}
 
-        <header class="title">Upload New Profile Image</header>
+        <header class="title">{% trans 'Upload New Profile Image' %}</header>
         <p>{{ form.non_field_errors }}</p>
         
         <div class="input avatar">
@@ -19,7 +19,7 @@
             {{ form.avatar }}
         </div>
         <div class="action">
-            <button class="btn flat" type="submit">Upload</button>
+            <button class="btn flat" type="submit">{% trans 'Upload' %}</button>
         </div>
     </form>
 {% endblock content %}

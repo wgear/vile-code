@@ -1,3 +1,4 @@
+{% load i18n %}
 <!-- Club control -->
 <div class="headed block">
     <header class="block-title">
@@ -8,12 +9,11 @@
         <img src="{{ club.image }}" alt="{{ club.title }}">
         {% if is_owner %}
         <a href=""><i class="fa fa-cog"></i> Settings</a>
-        <a href=""><i class="fa fa-bar-chart"></i> Statistic</a>
         {% elif user.is_authenticated %}
             {% if is_subscribed %}
-                <a href="?unsubscribe=me" class="btn block-block">Unsubscribe</a>
+                <a href="?unsubscribe=me" class="btn block-block">{% trans 'Unsubscribe' %}</a>
             {% else %}
-                <a href="?subscribe=me" class="btn block-block">Subscribe</a>
+                <a href="?subscribe=me" class="btn block-block">{% trans 'Subscribe' %}</a>
             {% endif %}
         {% endif %}
     </section>
@@ -22,7 +22,7 @@
 <!-- Founders list -->
 <div class="headed block">
     <header class="block-title">
-        Founders
+        {% trans 'Editors' %}
         <span class="float-rt">{{ club.founders.all.count }}</span>
     </header>
     <section class="block-body persons-tab">
@@ -42,7 +42,7 @@
 <!-- Members list -->
 <div class="headed block">
     <header class="block-title">
-        Members
+        {% trans 'Followers' %}
         <span class="float-rt">{{ club.members.all.count }}</span>
     </header>
     <section class="block-body persons-tab">
@@ -52,7 +52,7 @@
                 <span>{{ person.username }}</span>
             </div>
         {% empty %}
-            <div class="empty">No members found</div>
+            <div class="empty">{% trans 'No followers yet' %}</div>
         {% endfor %}
     </section>
 </div>

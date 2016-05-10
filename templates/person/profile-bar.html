@@ -1,29 +1,35 @@
+{% load i18n %}
 {% if not user.is_authenticated %}
     <div class="headed wide html-form block">
-        <header class="block-title">Authorization</header>
-        <section class="block-body">
+        <header class="block-title">{% trans 'Authorization' %}</header>
+        <section class="block-body navbar">
             <form action="{% url 'person:auth' %}" method="post">
                 {% csrf_token %}
                 <div class="input">
-                    <input type="text" name="username" placeholder="Email or Login">
+                    <input type="text" name="username" placeholder="{% trans 'Email or Login' %}">
                 </div>
                 <div class="input">
-                    <input type="password" name="password" placeholder="Password">
+                    <input type="password" name="password" placeholder="{% trans 'Password' %}">
                 </div>
-                <input type="submit" class="btn" value="Login">
+                <input type="submit" class="btn" value="{% trans 'Login' %}">
+                <a style="text-align: center;" href="{% url 'person:register' %}">{% trans 'Create new account' %}</a>
             </form>
         </section>
     </div>
 {% else %}
     <div class="headed wide html-form block">
-        <header class="block-title">Founder Karma <span class="float-rt">{{ user.karma }}</span></header>
+        <header class="block-title">{% trans 'Author Karma' %} <span class="float-rt">{{ user.karma }}</span></header>
         <section class="block-body navbar">
             {% for club in my_clubs %}
                 <a href="{% url 'club:home' club.id %}" class="block-block">{{ club.title }}</a>
             {% endfor %}
 
             <br>
-            <a href="{% url 'club:create' %}" class="btn">Create New Club</a>
+            {% if user.verified %}
+            <a href="{% url 'club:create' %}" class="btn">{% trans 'Create New Club' %}</a>
+            {% else %}
+                <a href="">{% trans 'Verify Email Address' %}</a>
+            {% endif %}
         </section>
     </div>
 {% endif %}

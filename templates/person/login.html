@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load staticfiles i18n %}
 
 {% block rside %}{% endblock %}
 {% block content %}
@@ -7,17 +7,17 @@
         <header class="block-title">Authorization</header>
         <section class="block-body">
             {% for msg in message %}
-                <p>{{ msg }}</p>
+                <p class="warning">{{ msg }}</p>
             {% endfor %}
             <form action="{% url 'person:auth' %}" method="post">
                 {% csrf_token %}
                 <div class="input">
-                    <input type="text" name="username" placeholder="Email or Login">
+                    <input type="text" name="username" placeholder="{% trans 'Email or Login' %}">
                 </div>
                 <div class="input">
-                    <input type="password" name="password" placeholder="Password">
+                    <input type="password" name="password" placeholder="{% trans 'Password' %}">
                 </div>
-                <input type="submit" class="btn" value="Login">
+                <input type="submit" class="btn" value="{% trans 'Login' %}">
             </form>
         </section>
     </div>

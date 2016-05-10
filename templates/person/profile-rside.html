@@ -1,0 +1,90 @@
+{% load i18n %}
+<!-- Profile control -->
+<div class="headed block">
+    <header class="block-title">
+        {% if not profile.first_name or not profile.last_name %}
+            {{ profile.username }}
+        {% else %}
+            {{ profile.first_name }} ({{ profile.username }}) {{ profile.last_name }}
+        {% endif %}
+        <span class="float-rt">{{ profile.karma }}</span>
+    </header>
+    <section class="block-body navbar">
+        <img src="{{ profile.image }}" alt="{{ profile.username }}">
+        {% if is_current %}
+            <a href="">Settings</a>
+        {% else %}
+            {% if is_friend %}
+                <a href="">{% trans 'Add to friends' %}</a>
+            {% else %}
+                <a href="">{% trans 'Remove from friends' %}</a>
+            {% endif %}
+        {% endif %}
+    </section>
+</div>
+
+<!-- Authored list -->
+{% if profile.publics.all.count > 0 %}
+<div class="headed block">
+    <header class="block-title">
+        {% trans 'Own club' %}
+        <span class="float-rt">{{ profile.publics.all.count }}</span>
+    </header>
+    <section class="block-body navbar">
+        {% for club in profile.publics.all %}
+            <a href="{% url 'club:home' club.pk %}">{{ club.title }}</a>
+        {% endfor %}
+    </section>
+</div>
+{% endif %}
+
+<!-- Followed list -->
+{% if profile.followed.all.count > 0 %}
+<div class="headed block">
+    <header class="block-title">
+        {% trans 'Followed' %}
+        <span class="float-rt">{{ profile.followed.all.count }}</span>
+    </header>
+    <section class="block-body navbar">
+        {% for club in profile.followed.all %}
+            <a href="{% url 'club:home' club.pk %}">{{ club.title }}</a>
+        {% endfor %}
+    </section>
+</div>
+{% endif %}
+
+<!-- Friends list -->
+<div class="headed block">
+    <header class="block-title">
+        {% trans 'Friends' %}
+        <span class="float-rt">{{ profile.friends.all.count }}</span>
+    </header>
+    <section class="block-body persons-tab">
+        {% for person in profile.new_friends %}
+            <div class="person-item">
+                <img src="{{ person.image }}" alt="{{ person.username }}">
+                <span>{{ person.username }}</span>
+            </div>
+        {% empty %}
+            <div class="empty">{% trans 'No friends yet' %}</div>
+        {% endfor %}
+    </section>
+</div>
+
+<!-- Guests list -->
+<div class="headed block">
+    <header class="block-title">
+        {% trans 'Guests' %}
+        <span class="float-rt">{{ profile.guests.all.count }}</span>
+    </header>
+    <section class="block-body persons-tab">
+        {% for person in profile.new_guests %}
+            <div class="person-item">
+                <img src="{{ person.image }}" alt="{{ person.username }}">
+                <span>{{ person.username }}</span>
+            </div>
+        {% empty %}
+            <div class="empty">{% trans 'No guests yet' %}</div>
+        {% endfor %}
+    </section>
+</div>

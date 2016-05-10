@@ -1,4 +1,5 @@
 {% load content %}
+{% load i18n %}
 <div class="item block">
     <header>
         <img src="{{ entry.publisher.image }}" alt="{{ entry.publisher.title }}">
@@ -25,12 +26,12 @@
         <div class="block-inline footer">
             {% if entry.publisher.owner_id == user.pk or entry.owner_id == user.pk %}
                 <a href="">
-                    <i class="fa fa-trash"></i>
+                    <i class="fa fa-trash"></i> <span class="sm-hide">{% trans 'Delete' %}</span>
                 </a>
             {% endif %}
 
             <a href="{% url 'feed:show' entry.pk %}">
-                {{ entry.comments_count }} Comments
+                <i class="fa fa-comments"></i> <span class="sm-hide">{% trans 'Comments' %}</span> {{ entry.comments_count }}
             </a>
         </div>
     </section>

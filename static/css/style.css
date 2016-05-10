@@ -50,13 +50,6 @@ html {
   .md-show {
     display: block !important; } }
 
-.empty {
-  display: block;
-  padding: 8px 14px;
-  text-align: center;
-  color: #000000;
-  background: white; }
-
 .fix {
   clear: both; }
 
@@ -207,6 +200,32 @@ a, .droplet {
   float: left !important; }
 .float-no {
   float: none !important; }
+
+.warning {
+  color: darkred;
+  font-weight: bold;
+  padding: 8px 14px;
+  margin: 5px 0; }
+  .warning .errorlist {
+    display: block;
+    margin: 0;
+    padding: 0; }
+    .warning .errorlist li {
+      display: block;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      line-height: 18px;
+      font-style: italic;
+      text-align: right; }
+
+.empty {
+  display: block;
+  padding: 8px 14px;
+  text-align: center;
+  color: #000000;
+  background: white;
+  margin: 5px 0; }
 
 .droplet {
   height: 34px;

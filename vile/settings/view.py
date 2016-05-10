@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+from django.utils.translation import ugettext_lazy as _
+
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
@@ -28,7 +30,12 @@ TEMPLATES = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'ru-ru'
+# https://docs.djangoproject.com/es/1.9/topics/i18n/translation/#how-django-discovers-language-preference
+LANGUAGE_CODE = 'en-gb'
+
+LOCALE_PATHS = (
+    os.path.join(ROOT_DIR, 'locale'),
+)
 
 TIME_ZONE = 'UTC'
 
@@ -37,6 +44,12 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LANGUAGES = [
+    ('ua', _('Ukranian')),
+    ('ru', _('Russian')),
+    ('en', _('English'))
+]
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'

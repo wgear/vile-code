@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="item block">
     <header>
         <img src="{{ comment.publisher.image }}" alt="{{ comment.publisher.username }}">
@@ -5,7 +6,7 @@
             <a href="" class="author">
                 {{ comment.publisher.username }}
             </a>
-            <span class="info">at {{ comment.created_at }}</span>
+            <span class="info">{% trans 'at' %} {{ comment.created_at }}</span>
         </div>
     </header>
 
@@ -16,9 +17,9 @@
     <section class="item-footer">
         {% if user.is_authenticated %}
         <div class="float-rt">
-            <span class="btn" onclick="Vote('Comment.{{ comment.pk }}', 1)"><i class="fa fa-thumbs-up"></i></span>
-            <span class="karma" data-target="Comment.{{ comment.pk }}">{{ comment.karma }}</span>
             <span class="btn" onclick="Vote('Comment.{{ comment.pk }}', 0)"><i class="fa fa-thumbs-down"></i></span>
+            <span class="karma" data-target="Comment.{{ comment.pk }}">{{ comment.karma }}</span>
+            <span class="btn" onclick="Vote('Comment.{{ comment.pk }}', 1)"><i class="fa fa-thumbs-up"></i></span>
         </div>
         {% endif %}
 

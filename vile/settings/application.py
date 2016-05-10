@@ -8,8 +8,14 @@ SECRET_KEY = '5pz)=n%7_q8xdjksrl4!3tqulwq@)qe^)4cvnue9r-ib7l93#)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Site ID
+SITE_ID = 1
+
+# Always with www
+PREPEND_WWW = False
+
 # Allowed hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
@@ -19,6 +25,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.google',
 ]
 
 # Custom applications
@@ -33,12 +45,14 @@ CUSTOM_APPS = [
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'vile.middleware.subdomain.SubdomainMiddleware',
 ]
 
 # Base Url configuration

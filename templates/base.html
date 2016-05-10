@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,8 +37,8 @@
 
             {% if user.is_authenticated %}
             <ul class="float-rt">
-                <li class="xs-hide"><a href="#">{{ user.username }}</a></li>
-                <li style="display: none" class="xs-show"><a href="#"><i class="fa fa-user"></i></a></li>
+                <li class="xs-hide"><a href="{% url 'person:profile' user.username %}">{{ user.username }}</a></li>
+                <li style="display: none" class="xs-show"><a href="{% url 'person:profile' user.username %}"><i class="fa fa-user"></i></a></li>
                 <li class="xs-hide"><a href="{% url 'person:logout' %}"><i class="fa fa-power-off"></i></a></li>
             </ul>
             {% else %}
@@ -59,7 +60,7 @@
                 {% include 'person/profile-bar.html' %}
 
                 <div class="headed block">
-                    <header class="block-title">Hot topic</header>
+                    <header class="block-title">{% trans 'The Most Discussed' %}</header>
                     <section class="block-body">
                         {% for tag in hot %}
                             <a class="btn flat" href="{% url 'home' %}?hash={{ tag.name }}">#{{ tag.name }}</a>
@@ -74,6 +75,6 @@
             {% block content %}{% endblock content %}
         </section>
     </section>
-        <div class="fix"></div>
+    <div class="fix"></div>
 </body>
 </html>

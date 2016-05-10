@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+
+{% block content %}
+        <form action="" id="create-form" method="post" enctype="multipart/form-data" class="block html-form tab flat">
+        {% csrf_token %}
+
+        <header class="title">{% trans 'Registration new account' %}</header>
+        {% if form.non_field_errors %}
+        <p class="warning">{{ form.non_field_errors }}</p>
+        {% endif %}
+
+        <div class="input {% if form.errors.first_name %}invalid{% endif %}">
+            <label for="id_first_name" class="table">{% trans 'First Name' %}</label>
+            {{ form.first_name }}
+        </div>
+        {% if form.errors.first_name %}
+            <div class="warning list">{{ form.errors.first_name }}</div>
+        {% endif %}
+
+        <div class="input {% if form.errors.last_name %}invalid{% endif %}">
+            <label for="id_last_name" class="table">{% trans 'Last Name' %}</label>
+            {{ form.last_name }}
+        </div>
+        {% if form.errors.last_name %}
+            <div class="warning list">{{ form.errors.last_name }}</div>
+        {% endif %}
+
+        <div class="input {% if form.errors.email %}invalid{% endif %}">
+            <label for="id_email" class="table">{% trans 'E-Mail Address' %}</label>
+            {{ form.email }}
+        </div>
+        {% if form.errors.email %}
+            <div class="warning list">{{ form.errors.email }}</div>
+        {% endif %}
+
+        <div class="input {% if form.errors.username %}invalid{% endif %}">
+            <label for="id_username" class="table">{% trans 'Username (nick)' %}</label>
+            {{ form.username }}
+        </div>
+        {% if form.errors.username %}
+            <div class="warning list">{{ form.errors.username }}</div>
+        {% endif %}
+
+        <div class="input {% if form.errors.password %}invalid{% endif %}">
+            <label for="id_password" class="table">{% trans 'Password' %}</label>
+            {{ form.password }}
+        </div>
+        {% if form.errors.password %}
+            <div class="warning list">{{ form.errors.password }}</div>
+        {% endif %}
+
+        <div class="input {% if form.errors.password %}invalid{% endif %}">
+            <label for="id_password1" class="table">{% trans 'Repeat Password' %}</label>
+            {{ form.password1 }}
+        </div>
+        {% if form.errors.password1 %}
+            <div class="warning list">{{ form.errors.password1 }}</div>
+        {% endif %}
+
+        <div class="action">
+            <button class="btn flat" type="submit">{% trans 'Register' %}</button>
+        </div>
+    </form>
+{% endblock %}

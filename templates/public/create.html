@@ -1,39 +1,39 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load staticfiles i18n %}
 
 {% block content %}
     <form action="" id="create-form" method="post" enctype="multipart/form-data" class="block html-form tab flat">
         {% csrf_token %}
 
-        <header class="title">Create new club</header>
+        <header class="title">{% trans 'Create new club' %}</header>
         <p>{{ form.non_field_errors }}</p>
 
         <div class="input {% if form.errors.title %}invalid{% endif %}">
-            <label for="id_title" class="table">{{ form.title.label }}</label>
+            <label for="id_title" class="table">{% trans 'Club title' %}</label>
             {{ form.title }}
         </div>
         <div class="input {% if form.errors.description %}invalid{% endif %}">
-            <label for="id_description" class="table">{{ form.description.label }}</label>
+            <label for="id_description" class="table">{% trans 'Club short description' %}</label>
             {{ form.description }}
         </div>
         <div class="input {% if form.errors.tags %}invalid{% endif %}">
-            <label for="id_tags" class="table">{{ form.tags.label }}</label>
+            <label for="id_tags" class="table">{% trans 'Main hashtags' %}</label>
             {{ form.tags }}
         </div>
         <div class="input {% if form.errors.full_description %}invalid{% endif %}">
-            <label for="id_full_description" class="table">{{ form.full_description.label }}</label>
+            <label for="id_full_description" class="table">{% trans 'Full Club description' %}</label>
             {{ form.full_description }}
         </div>
         <div class="input {% if form.errors.is_public %}invalid{% endif %}">
-            <label for="id_is_public" class="table">{{ form.is_public.label }}</label>
+            <label for="id_is_public" class="table">{% trans 'Is your club accessible by any users' %}</label>
             {{ form.is_public }}
         </div>
         <div class="input {% if form.errors.is_indexed %}invalid{% endif %}">
-            <label for="id_is_indexed" class="table">{{ form.is_indexed.label }}</label>
+            <label for="id_is_indexed" class="table">{% trans 'Allow search engines to index your club' %}</label>
             {{ form.is_indexed }}
         </div>
         <div class="action">
-            <button class="btn flat" type="submit">Create</button>
+            <button class="btn flat" type="submit">{% trans 'Create' %}</button>
         </div>
     </form>
 {% endblock %}

@@ -11,6 +11,7 @@ class Public(models.Model, Votable):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     full_description = models.TextField(null=True, blank=True)
+    slug = models.CharField(null=True, blank=True, max_length=24)
     avatar = models.ImageField(upload_to=settings.UPLOAD_AVATAR_DIR, null=True, blank=True)
 
     tags = models.ManyToManyField(Hashtag)
@@ -41,6 +42,10 @@ class Public(models.Model, Votable):
         if not self.avatar:
             return static('media/noavatar.jpg')
         return '/{}'.format(self.avatar.url)
+
+    @property
+    def slug_allowed(self):
+        return self.members.all().count() > settings.SLUGABLE_CLUB_MEMEBERS
 
     @property
     def recent_entries(self):
