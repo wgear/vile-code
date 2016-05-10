@@ -17,6 +17,9 @@ PREPEND_WWW = False
 # Allowed hosts
 ALLOWED_HOSTS = ['*']
 
+# Cookie domain
+SESSION_COOKIE_DOMAIN = '.hashorg.com'
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
