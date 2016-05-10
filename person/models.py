@@ -22,6 +22,7 @@ class Person(AbstractUser, Votable):
 
     friends = models.ManyToManyField('self', verbose_name='friends')
     guests = models.ManyToManyField('self', verbose_name='guests')
+    language = models.CharField(choices=settings.LANGUAGES, max_length=5, default='ru', blank=True)
 
     confirmation = models.CharField(max_length=8, blank=True, null=True)
     verified = models.BooleanField(default=False, blank=True, db_index=True)

@@ -75,7 +75,7 @@ msgstr ""
 
 #: templates/feed/listing.html:5
 msgid "No publications found"
-msgstr ""
+msgstr "Пока нет публикаций"
 
 #: templates/feed/listing.html:8
 msgid "Load more"
