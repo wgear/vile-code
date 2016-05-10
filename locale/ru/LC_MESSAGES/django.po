@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-10 11:41+0300\n"
+"POT-Creation-Date: 2016-05-10 16:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,67 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+#: person/forms.py:29
+msgid ""
+"Username is too long. Please choose username between 4 and 24 characters"
+msgstr ""
+
+#: person/forms.py:32
+msgid "Username contains illegal characters. Only A-Z, 0-9 and _ are allowed"
+msgstr ""
+
+#: person/forms.py:35
+msgid "Username already used by another user"
+msgstr ""
+
+#: person/forms.py:41
+msgid "Passwords does not match"
+msgstr ""
+
+#: person/models.py:15
+msgid "Male"
+msgstr ""
+
+#: person/models.py:16
+msgid "Female"
+msgstr ""
+
+#: templates/base.html:63
+msgid "The Most Discussed"
+msgstr ""
+
+#: templates/feed/comment_detail.html:9
+msgid "at"
+msgstr ""
+
+#: templates/feed/comment_listing.html:8
+msgid "No comments yet"
+msgstr ""
+
+#: templates/feed/comments_form.html:6
+msgid "Author"
+msgstr ""
+
+#: templates/feed/comments_form.html:8 templates/public/publish_form.html:7
+msgid "Publicate"
+msgstr ""
+
+#: templates/feed/entry_detail.html:29
+msgid "Delete"
+msgstr ""
+
+#: templates/feed/entry_detail.html:34
+msgid "Comments"
+msgstr ""
+
+#: templates/feed/listing.html:5
+msgid "No publications found"
+msgstr ""
+
+#: templates/feed/listing.html:8
+msgid "Load more"
+msgstr ""
+
 #: templates/person/change_avatar.html:8
 msgid "Upload New Profile Image"
 msgstr ""
@@ -28,32 +89,161 @@ msgstr ""
 msgid "Upload"
 msgstr "Загрузить"
 
+#: templates/person/login.html:15 templates/person/profile-bar.html.py:9
+msgid "Email or Login"
+msgstr ""
+
+#: templates/person/login.html:18 templates/person/profile-bar.html.py:12
+#: templates/person/registration.html:48
+msgid "Password"
+msgstr ""
+
+#: templates/person/login.html:20 templates/person/profile-bar.html.py:14
+msgid "Login"
+msgstr ""
+
 #: templates/person/profile-bar.html:4
 msgid "Authorization"
 msgstr ""
 
-#: templates/person/profile-bar.html:9
-msgid "Email or Login"
+#: templates/person/profile-bar.html:15
+msgid "Create new account"
 msgstr ""
 
-#: templates/person/profile-bar.html:12
-msgid "Password"
-msgstr ""
-
-#: templates/person/profile-bar.html:14
-msgid "Login"
-msgstr ""
-
-#: templates/person/profile-bar.html:20
+#: templates/person/profile-bar.html:21
 msgid "Author Karma"
 msgstr ""
 
-#: templates/person/profile-bar.html:28
+#: templates/person/profile-bar.html:29
 msgid "Create New Club"
 msgstr ""
 
-#: templates/person/profile-bar.html:30
+#: templates/person/profile-bar.html:31
 msgid "Verify Email Address"
+msgstr ""
+
+#: templates/person/profile-rside.html:18
+msgid "Add to friends"
+msgstr ""
+
+#: templates/person/profile-rside.html:20
+msgid "Remove from friends"
+msgstr ""
+
+#: templates/person/profile-rside.html:30
+msgid "Own club"
+msgstr ""
+
+#: templates/person/profile-rside.html:45
+msgid "Followed"
+msgstr ""
+
+#: templates/person/profile-rside.html:59
+msgid "Friends"
+msgstr ""
+
+#: templates/person/profile-rside.html:69
+msgid "No friends yet"
+msgstr ""
+
+#: templates/person/profile-rside.html:77
+msgid "Guests"
+msgstr ""
+
+#: templates/person/profile-rside.html:87
+msgid "No guests yet"
+msgstr ""
+
+#: templates/person/profile.html:6
+msgid "Profile"
+msgstr ""
+
+#: templates/person/profile.html:16
+msgid "No messages found"
+msgstr ""
+
+#: templates/person/registration.html:10
+msgid "Registration new account"
+msgstr ""
+
+#: templates/person/registration.html:16
+msgid "First Name"
+msgstr ""
+
+#: templates/person/registration.html:24
+msgid "Last Name"
+msgstr ""
+
+#: templates/person/registration.html:32
+msgid "E-Mail Address"
+msgstr ""
+
+#: templates/person/registration.html:40
+msgid "Username (nick)"
+msgstr ""
+
+#: templates/person/registration.html:56
+msgid "Repeat Password"
+msgstr ""
+
+#: templates/person/registration.html:64
+msgid "Register"
+msgstr ""
+
+#: templates/public/create.html:8
+msgid "Create new club"
+msgstr ""
+
+#: templates/public/create.html:12
+msgid "Club title"
+msgstr ""
+
+#: templates/public/create.html:16
+msgid "Club short description"
+msgstr ""
+
+#: templates/public/create.html:20
+msgid "Main hashtags"
+msgstr ""
+
+#: templates/public/create.html:24
+msgid "Full Club description"
+msgstr ""
+
+#: templates/public/create.html:28
+msgid "Is your club accessible by any users"
+msgstr ""
+
+#: templates/public/create.html:32
+msgid "Allow search engines to index your club"
+msgstr ""
+
+#: templates/public/create.html:36
+msgid "Create"
+msgstr ""
+
+#: templates/public/publish_form.html:13
+msgid "Tell about something"
+msgstr ""
+
+#: templates/public/rside.html:14
+msgid "Unsubscribe"
+msgstr ""
+
+#: templates/public/rside.html:16
+msgid "Subscribe"
+msgstr ""
+
+#: templates/public/rside.html:25
+msgid "Editors"
+msgstr ""
+
+#: templates/public/rside.html:45
+msgid "Followers"
+msgstr ""
+
+#: templates/public/rside.html:55
+msgid "No followers yet"
 msgstr ""
 
 #: vile/settings/view.py:49
