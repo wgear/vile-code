@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django.core.mail import send_mail, send_mass_mail
+from django.template import loader
+from django.core.urlresolvers import reverse
+
+
+def absreverse(reverse_name, *args, **kwargs):
+    return 'http://www.hashorg.com{}'.format(
+        reverse(reverse_name, *args, **kwargs)
+    )
 
 
 class Email(object):
@@ -31,3 +39,12 @@ class Email(object):
             (self.subject, self.message, self.from_email, [element])
             for element in self.to_emails
         )
+
+
+class TemplateEmail(object):
+    def __init__(self, subject, from_email, to_emails, template, context={}):
+        tpl = loader.get_template(template)
+        self.sender = Email(subject, from_email, to_emails, tpl.render(context=context), True)
+
+    def send(self):
+        return self.sender.send()

@@ -61,6 +61,19 @@ def register(request):
     })
 
 
+def confirmation(request, key):
+    user = Person.objects.filter(confirmation__iexact=key).first()
+
+    if user:
+        user.verify()
+
+        return redirect(
+            reverse('person:profile', kwargs={'username': user.username})
+        )
+
+    return redirect(reverse('home'))
+
+
 def profile(request, username):
     user_profile = None
     try:

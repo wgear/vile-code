@@ -45,6 +45,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEFAULT_LANGUAGE = 'en'
 LANGUAGES = [
     ('ua', _('Ukranian')),
     ('ru', _('Russian')),

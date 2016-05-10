@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django.utils import translation
+from django.conf import settings
 
 
 class LocaleMiddleware(object):
@@ -13,5 +14,6 @@ class LocaleMiddleware(object):
     """
 
     def process_request(self, request):
-        translation.activate(request.user.language)
+        language = request.user.language if not request.user.is_anonymous() else settings.DEFAULT_LANGUAGE
+        translation.activate(language)
         request.LANGUAGE_CODE = translation.get_language()

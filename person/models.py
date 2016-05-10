@@ -54,7 +54,7 @@ class Person(AbstractUser, Votable):
 
     def save(self, *args, **kwargs):
         if not self.verified:
-            self.confirmation = Encrypt(self.username).upper()[0:8]
+            self.confirmation = Encrypt(self.username).sha512.upper()[0:8]
         return super(Person, self).save(*args, **kwargs)
 
     def verify(self):

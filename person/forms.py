@@ -4,6 +4,7 @@ import re
 from django import forms
 from person.models import Person
 from django.utils.translation import ugettext as _
+from vile.service import TemplateEmail, absreverse
 
 
 class UpdateAvatarForm(forms.ModelForm):
@@ -53,4 +54,17 @@ class RegistrationForm(forms.Form):
 
         person.set_password(data['password'])
         person.save()
+
+        # Send confirmation email
+        TemplateEmail(
+            subject='Registration',
+            from_email='cods.max@gmail.com',
+            to_emails=person.email,
+            template='email/confirmation_email.html',
+            context={
+                'user': person,
+                'activation_link': absreverse('person:confirmation', kwargs={'key': person.confirmation})
+            }
+        ).send()
+
         return person

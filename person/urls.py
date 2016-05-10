@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from person.views import (
-    login_page, authorize, out, avatar, profile, register
+    login_page, authorize, out, avatar, profile, register,
+    confirmation
 )
 
 
@@ -10,5 +11,6 @@ urlpatterns = [
     url(r'exit$', out, name='logout'),
     url(r'avatar$', avatar, name='avatar'),
     url(r'register$', register, name='register'),
+    url(r'confirm/(?P<key>.+)$', confirmation, name='confirmation'),
     url(r'(?P<username>.+)$', profile, name='profile')
 ]

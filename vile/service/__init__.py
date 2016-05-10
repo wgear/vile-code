@@ -3,3 +3,4 @@
 from .rating_service import *
 from .feed_service import *
 from .public_service import *
+from .sendmail import *
