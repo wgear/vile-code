@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 # http://django-websocket-redis.readthedocs.io/en/latest/installation.html
-WEBSOCKET_URL = '/stream/'
+WEBSOCKET_URL = '/ws/'
 
 WS4REDIS_EXPIRE = 3600
 
-# WS4REDIS_SUBSCRIBER = 'stream..RedisStore'
+WS4REDIS_PREFIX = 'stream'
 
 WS4REDIS_HEARTBEAT = '--heartbeat--'
 
