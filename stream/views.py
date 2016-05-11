@@ -10,25 +10,15 @@ from person.models import Person
 class PublicChat(TemplateView):
     template_name = 'stream/stream.html'
 
-    @csrf_exempt
-    def dispatch(self, request, *args, **kwargs):
-        return super(PublicChat, self).dispatch(request, *args, **kwargs)
-
     def get_context_data(self, **kwargs):
         context = super(PublicChat, self).get_context_data(**kwargs)
         context['public'] = Public.objects.filter(pk=int(kwargs.get('id'))).first()
         return context
 
-    def post(self, request, id, *args, **kwargs):
-        try:
-            public = Public.objects.get(pk=int(id))
-        except:
-            return HttpResponse(content='Error', status=404)
-
-        publisher = RedisPublisher(facility='public.{}'.format(str(public.pk)), broadcast=True)
-        message = RedisMessage(request.POST.get('message', ''))
-        publisher.publish_message(message)
-        return HttpResponse('OK')
+    def get(self, request, *args, **kwargs):
+        welcome = RedisMessage('Hello everybody')  # create a welcome message to be sent to everybody
+        RedisPublisher(facility='foobar', broadcast=True).publish_message(welcome)
+        return super(PublicChat, self).get(request, *args, **kwargs)
 
 
 class UserChat(TemplateView):

@@ -41,19 +41,19 @@ function WS4Redis(options, $) {
 			ws.onclose = on_close;
 			timer = null;
 		} catch (err) {
-			try_to_reconnect(uri);
+			try_to_reconnect();
 			deferred.reject(new Error(err));
 		}
 	}
 
-	function try_to_reconnect(uri) {
+	function try_to_reconnect() {
 		if (must_reconnect && !timer) {
 			// try to reconnect
 			console.log('Reconnecting...');
 			var interval = generate_inteval(attempts);
 			timer = setTimeout(function() {
 				attempts++;
-				connect(uri);
+				connect(ws.url);
 			}, interval);
 		}
 	}

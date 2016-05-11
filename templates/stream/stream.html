@@ -9,31 +9,30 @@
     <div id="container" class="block"></div>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
-		var ws4redis = WS4Redis({
-			uri: 'ws://hashorg.com/stream/public.{{ public.id }}?subscribe-group',
-			receive_message: receiveMessage,
-			heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
-		});
-		var billboard = $('#container');
-		$("#msg").keydown(function(event) {
-			if (event.keyCode === 13) {
-				event.preventDefault();
-				sendMessage();
-			}
-		});
-		$('#send_message').on('click', sendMessage);
-		// send message to the server using Ajax
-		function sendMessage() {
-			$.post('{% url "stream:public" public.id %}', {
-				user: $('#author').val(),
-				message: $('#msg').val()
-			});
-		}
-		// receive a message though the Websocket from the server
-		function receiveMessage(msg) {
-			billboard.append('<br/>' + msg);
-			billboard.scrollTop(billboard.scrollTop() + 25);
-		}
-	});
+            var ws4redis = WS4Redis({
+                uri: 'ws://127.0.0.1:8000/stream/public.{{ public.pk }}?subscribe-broadcast&publish-broadcast&echo',
+                receive_message: receiveMessage,
+                heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
+            });
+            var billboard = $('#container');
+
+            // send message though the Websocket to the server
+            $("#msg").keydown(function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    ws4redis.send_message($('#msg').val());
+                }
+            });
+
+            $('#send_message').click(function() {
+                ws4redis.send_message($('#msg').val());
+            });
+
+            // receive a message though the Websocket from the server
+            function receiveMessage(msg) {
+                billboard.append('<br/>' + msg);
+                billboard.scrollTop(billboard.scrollTop() + 25);
+            }
+        });
     </script>
 {% endblock %}
