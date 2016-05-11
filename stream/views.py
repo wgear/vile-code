@@ -1,3 +1,6 @@
+from cleave.encrypt import Encrypt
+from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 from django.views.generic.base import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
@@ -12,12 +15,18 @@ class PublicChat(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(PublicChat, self).get_context_data(**kwargs)
-        context['public'] = Public.objects.filter(pk=int(kwargs.get('id'))).first()
+        context['public'] = self.public
         return context
 
     def get(self, request, *args, **kwargs):
-        welcome = RedisMessage('Hello everybody')  # create a welcome message to be sent to everybody
-        RedisPublisher(facility='foobar', broadcast=True).publish_message(welcome)
+        try:
+            self.public = Public.objects.get(pk=int(kwargs.get('id', -1)))
+        except:
+            return redirect(reverse('404'))
+
+        welcome = RedisMessage('Hello everybody')
+        RedisPublisher(facility=self.public.facility, broadcast=True).publish_message(welcome)
+
         return super(PublicChat, self).get(request, *args, **kwargs)
 
 

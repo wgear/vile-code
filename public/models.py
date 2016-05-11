@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from cleave.encrypt import Encrypt
 from django.db import models
 from django.templatetags.static import static
 from feed.models import Hashtag
@@ -28,6 +29,10 @@ class Public(models.Model, Votable):
     is_indexed = models.BooleanField(default=True, blank=True, db_index=True)
     is_closed = models.BooleanField(default=False, blank=True, db_index=True)
     is_confirmed = models.BooleanField(default=False, blank=True, db_index=True)
+
+    @property
+    def facility(self):
+        return Encrypt('club.{}'.format(self.pk)).md5[:8].lower()
 
     @property
     def new_members(self):
