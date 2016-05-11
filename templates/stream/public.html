@@ -24,7 +24,7 @@
             <textarea data-autoresize="24" data-empty class="editor" id="message" placeholder="{% trans 'Tell about something' %}"></textarea>
         </section>
     </div>
-    <div id="container" class="block">
+    <div id="container">
         <div class="item block" id="template" style="display: none;">
             <header>
                 <img src="" data-image>
@@ -80,12 +80,15 @@
 
             $("#message").keydown(function(event) {
                 if (event.keyCode === 13) {
+                    event.preventDefault();
                     var input = $('#message');
                     var msg = window.message_template;
-                    msg.message = input.val();
-                    input.val('');
+                    msg.message = input.val().trim();
+                    if ( msg.message.length < 2 ) {
+                        return;
+                    }
 
-                    event.preventDefault();
+                    input.val('');
                     ws4redis.send_message(JSON.stringify(msg));
                 }
             });
