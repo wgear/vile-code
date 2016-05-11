@@ -20,7 +20,7 @@ class Person(AbstractUser, Votable):
     avatar = models.ImageField(upload_to=settings.UPLOAD_AVATAR_DIR, null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, db_index=True)
 
-    friends = models.ManyToManyField('self', verbose_name='friends')
+    contacts = models.ManyToManyField('self', verbose_name='contacts')
     guests = models.ManyToManyField('self', verbose_name='guests')
     language = models.CharField(choices=settings.LANGUAGES, max_length=5, default='ru', blank=True)
 
@@ -29,8 +29,8 @@ class Person(AbstractUser, Votable):
     register_date = models.DateTimeField(auto_created=True, blank=True, null=True)
 
     @property
-    def new_friends(self):
-        return self.friends.order_by('-id')[:9]
+    def new_contacts(self):
+        return self.contacts.order_by('-id')[:9]
 
     @property
     def new_guests(self):

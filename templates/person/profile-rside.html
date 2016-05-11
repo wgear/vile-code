@@ -56,11 +56,11 @@
 <!-- Friends list -->
 <div class="headed block">
     <header class="block-title">
-        {% trans 'Friends' %}
-        <span class="float-rt">{{ profile.friends.all.count }}</span>
+        {% trans 'Contacts' %}
+        <span class="float-rt">{{ profile.contacts.all.count }}</span>
     </header>
     <section class="block-body persons-tab">
-        {% for person in profile.new_friends %}
+        {% for person in profile.new_contacts %}
             <div class="person-item">
                 <img src="{{ person.image }}" alt="{{ person.username }}">
                 <span>{{ person.username }}</span>

@@ -1,6 +1,10 @@
 Django==1.9.5
-cleave
 MySQL-python==1.2.5
+cleave
+redis
+gevent
+greenlet
+wsaccel
 Pillow==3.2.0
 argparse==1.2.1
 wsgiref==0.1.2
