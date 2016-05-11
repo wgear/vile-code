@@ -32,8 +32,7 @@ class Public(models.Model, Votable):
 
     @property
     def facility(self):
-        # return Encrypt('club.{}'.format(self.pk)).md5[:8].lower()
-        return 'public'
+        return Encrypt('club.{}'.format(self.pk)).md5[:8].lower()
 
     @property
     def new_members(self):

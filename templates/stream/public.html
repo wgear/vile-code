@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block extra_title %}{% trans 'Chat' %} {{ club.title }} | {% endblock extra_title %}
+
+{% block extra %}
+    {% include 'public/header.html' with club=club user=user %}
+{% endblock extra %}
+
+{% block rside %}
+    {% include 'public/rside.html' with club=club user=user %}
+{% endblock rside %}
+
+{% block content %}
+    <div class="item block html-form wide">
+        <header>
+            <img src="{{ user.image }}" alt="Author">
+            <div class="header">
+                <span class="author">{{ club.title }}</span>
+                <span class="info">{{ user.username }}</span>
+            </div>
+        </header>
+        <section class="item-content input">
+            <textarea data-autoresize="24" data-empty class="editor" id="message" placeholder="{% trans 'Tell about something' %}"></textarea>
+        </section>
+    </div>
+    <div id="container" class="block">
+        <div class="item block" id="template" style="display: none;">
+            <header>
+                <img src="" data-image>
+                <div class="header" style="padding-left: 53px;">
+                    <a href="/person/" data-author class="author"></a>
+                </div>
+            </header>
+            <section class="item-content" data-message></section>
+            <!--section class="item-footer">
+                {% if user.is_authenticated %}
+                <div class="float-rt">
+                    <span class="btn" onclick="Vote('Entry.{{ entry.pk }}', 1)"><i class="fa fa-thumbs-up"></i></span>
+                    <span class="karma" data-target="Entry.{{ entry.pk }}">{{ entry.karma }}</span>
+                    <span class="btn" onclick="Vote('Entry.{{ entry.pk }}', 0)"><i class="fa fa-thumbs-down"></i></span>
+                </div>
+                {% endif %}
+
+                <div class="block-inline footer">
+                    {% if entry.publisher.owner_id == user.pk or entry.owner_id == user.pk %}
+                        <a href="">
+                            <i class="fa fa-trash"></i> <span class="sm-hide">{% trans 'Delete' %}</span>
+                        </a>
+                    {% endif %}
+
+                    <a href="">
+                        <i class="fa fa-comments"></i> <span class="sm-hide"></span>
+                    </a>
+                </div>
+            </section-->
+        </div>
+    </div>
+    <script type="text/javascript">
+        window.message_template = {message: '',user: {id: {{ user.pk }},username: '{{ user.username }}',image: '{{ user.image }}'},public: {id: {{ club.pk }},image: '{{ club.image }}', title: '{{ club.title }}'}};
+        jQuery(document).ready(function($) {
+            var ws4redis = WS4Redis({
+                uri: '{{ WEBSOCKET_URI }}{{ club.facility }}?subscribe-broadcast&publish-broadcast&echo',
+                receive_message: function (msg) {
+                    var billboard = $('#container');
+                    var data = clearRawMessage(msg);
+                    var template = $($('#template')[0].outerHTML);
+                    console.log(data);
+                    template.removeAttr('id', '');
+                    template.find('[data-image]').attr('src', data.user.image).fadeIn(300);
+                    template.find('[data-author]').text(data.user.username).attr('href', '/person/' + data.user.username);
+                    template.find('[data-message]').text(data.message);
+
+                    billboard.prepend(template);
+                    billboard.scrollTop(billboard.scrollTop() + 25);
+                    template.slideDown(250);
+                },
+                heartbeat_msg: {{ WS4REDIS_HEARTBEAT }}
+            });
+
+            $("#message").keydown(function(event) {
+                if (event.keyCode === 13) {
+                    var input = $('#message');
+                    var msg = window.message_template;
+                    msg.message = input.val();
+                    input.val('');
+
+                    event.preventDefault();
+                    ws4redis.send_message(JSON.stringify(msg));
+                }
+            });
+        });
+
+        function clearRawMessage(raw) {
+            raw = raw[0] == '"' && raw[raw.length-1] == '"' ? JSON.parse(raw) : raw;
+            return JSON.parse(raw);
+        }
+    </script>
+{% endblock %}

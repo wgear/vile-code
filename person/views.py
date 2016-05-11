@@ -87,7 +87,7 @@ def profile(request, username):
         )
 
     is_current = request.user.pk == user_profile.pk
-    is_friend = user_profile.friends.filter(id=request.user.pk).count() > 0
+    is_friend = user_profile.contacts.filter(id=request.user.pk).count() > 0
 
     return render(request, 'person/profile.html', {
         'profile': user_profile,

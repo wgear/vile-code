@@ -16,6 +16,12 @@
                 <a href="?subscribe=me" class="btn block-block">{% trans 'Subscribe' %}</a>
             {% endif %}
         {% endif %}
+        {% if user.is_authenticated %}
+            <a href="{% url 'stream:public' club.id %}">
+                <i class="fa fa-comments"></i>
+                {% trans 'Chat' %}
+            </a>
+        {% endif %}
     </section>
 </div>
 

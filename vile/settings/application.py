@@ -11,8 +11,8 @@ DEBUG = True
 # Site ID
 SITE_ID = 1
 
-# Always with www
-PREPEND_WWW = False
+# Always add www to current host
+PREPEND_WWW = True
 
 # Allowed hosts
 ALLOWED_HOSTS = ['*']
