@@ -19,4 +19,7 @@ urlpatterns = [
 
     # Module Public
     url(r'^club/', include('public.urls', namespace='club')),
+
+    # Module Streaming
+    url(r'^pool/', include('stream.urls', namespace='stream')),
 ]

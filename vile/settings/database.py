@@ -6,9 +6,9 @@
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'uplevel',
+        'NAME': 'vile',
         'HOST': 'localhost',
         'USER': 'root',
-        'PASSWORD': 'xdoM4tRImh'
+        'PASSWORD': '123'
     }
 }

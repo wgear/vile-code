@@ -37,7 +37,8 @@ CUSTOM_APPS = [
     'vile',
     'person',
     'public',
-    'feed'
+    'feed',
+    'stream'
 ]
 
 # Middleware Classes

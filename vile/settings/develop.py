@@ -5,6 +5,8 @@ DEBUG = True
 
 PREPEND_WWW = False
 
+SESSION_COOKIE_DOMAIN = None
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
