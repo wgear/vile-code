@@ -5,6 +5,7 @@ redis
 gevent
 greenlet
 wsaccel
+django-websocket-redis
 Pillow==3.2.0
 argparse==1.2.1
 wsgiref==0.1.2

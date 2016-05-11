@@ -21,6 +21,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'ws4redis.context_processors.default',
                 'vile.contextprocessor.settings.data',
                 'vile.contextprocessor.feed.related',
                 'vile.contextprocessor.public.mypublic',
